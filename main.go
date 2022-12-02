@@ -7,4 +7,5 @@ import (
 
 func main() {
 	log.Println(day1.Part1())
+	log.Println(day1.Part2())
 }
