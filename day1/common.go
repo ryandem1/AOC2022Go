@@ -13,17 +13,17 @@ func readElves() chan Elf {
 
 		for line := range common.ReadLinesFromFile("day1") {
 			if line == "" {
-				elf := Elf{Food: foods}
+				elf := Elf{food: foods}
 				elves <- elf
 				foods = []Food{}
 			} else if calories, err := strconv.Atoi(line); err == nil {
-				foods = append(foods, Food{Calories: calories})
+				foods = append(foods, Food{calories: calories})
 			}
 		}
 
 		// This is to handle sending the very last item if there is no newline at the end of the file
 		if len(foods) > 0 {
-			elf := Elf{Food: foods}
+			elf := Elf{food: foods}
 			elves <- elf
 		}
 		close(elves)
