@@ -14,7 +14,7 @@ func ReadLinesFromFile(fileName string) chan string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(filepath.Join(cwd, "inputs", fileName))
+
 	f, err := os.Open(filepath.Join(cwd, "inputs", fileName))
 
 	if err != nil {
