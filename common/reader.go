@@ -42,3 +42,27 @@ func ReadLinesFromFile(fileName string) chan string {
 
 	return lines
 }
+
+// ReadChannelInChunks will break a channel's return into chunks of a certain size. It is best-effort, if there are not
+// enough elements to fill up a full chunk, it will return a partial chunk
+func ReadChannelInChunks[__T any, __C chan __T](channel __C, chunkSize int) chan []__T {
+	chunkedChannel := make(chan []__T)
+
+	go func() {
+		var chunk []__T
+		for item := range channel {
+			chunk = append(chunk, item)
+			if len(chunk) == chunkSize {
+				chunkedChannel <- chunk
+				chunk = chunk[:0] // Clears chunk but keeps memory capacity
+			}
+		}
+
+		// Sends the last partial chunk if one exists
+		if len(chunk) > 0 {
+			chunkedChannel <- chunk
+		}
+		close(chunkedChannel)
+	}()
+	return chunkedChannel
+}
