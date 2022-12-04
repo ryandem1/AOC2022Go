@@ -29,6 +29,11 @@ func ReadLinesFromFile(fileName string) chan string {
 			lines <- scanner.Text()
 		}
 		close(lines)
+
+		err = f.Close()
+		if err != nil {
+			panic(err)
+		}
 	}()
 
 	if err := scanner.Err(); err != nil {
