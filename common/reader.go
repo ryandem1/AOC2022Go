@@ -54,7 +54,10 @@ func ReadChannelInChunks[__T any, __C chan __T](channel __C, chunkSize int) chan
 			chunk = append(chunk, item)
 			if len(chunk) == chunkSize {
 				chunkedChannel <- chunk
-				chunk = chunk[:0] // Clears chunk but keeps memory capacity
+
+				// Clears chunk and sends to garbage collector. Fun fact, I first tried to just clear the chunk, but
+				// keep the memory with chunk = [:0], but that caused a nasty race condition :)
+				chunk = nil
 			}
 		}
 
