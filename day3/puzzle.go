@@ -35,3 +35,9 @@ func Part1() (prioritySum int) {
 	}
 	return prioritySum
 }
+
+// Part2 Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities
+// of those item types?
+func Part2() (prioritySum int) {
+	return prioritySum
+}
