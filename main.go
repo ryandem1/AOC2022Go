@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ryandem1/aoc_2022_go/day1"
 	"github.com/ryandem1/aoc_2022_go/day2"
+	"github.com/ryandem1/aoc_2022_go/day3"
 	"log"
 	"os"
 )
@@ -27,6 +28,9 @@ func main() {
 
 		log.Println("What would your total score be if everything goes exactly according to your strategy guide?")
 		log.Println("Part 2 Answer:", day2.Part2())
+	case "day3":
+		log.Println("What is the sum of the priorities of those item types?")
+		log.Println("Part 1 Answer:", day3.Part1())
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
