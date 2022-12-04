@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/ryandem1/aoc_2022_go/day1"
+	"github.com/ryandem1/aoc_2022_go/day2"
 	"log"
 	"os"
 )
@@ -20,6 +21,9 @@ func main() {
 				"in total?",
 		)
 		log.Println("Part 2 Answer:", day1.Part2())
+	case "day2":
+		log.Println("What would your total score be if everything goes exactly according to your strategy guide?")
+		log.Println("Part 1 Answer:", day2.Part1())
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
