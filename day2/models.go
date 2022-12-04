@@ -12,6 +12,13 @@ const (
 	scissors
 )
 
+type day2Part int32
+
+const (
+	part1 day2Part = iota
+	part2
+)
+
 // letterToHandShape will convert the letter from the input file to a handShape
 func letterToHandShape(letter string) handShape {
 	switch letter {

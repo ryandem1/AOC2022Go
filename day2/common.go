@@ -1,6 +1,7 @@
 package day2
 
 import (
+	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 	"log"
 	"strings"
@@ -32,14 +33,26 @@ func winningShape(shape1 *handShape, shape2 *handShape) *handShape {
 }
 
 // getRounds will read data from the input file, format it as a struct and send it through a channel
-func getRounds() chan RPSRound {
+func getRounds(part day2Part) chan RPSRound {
 	rounds := make(chan RPSRound)
 	go func() {
 		for line := range common.ReadLinesFromFile("day2") {
 			choices := strings.Fields(line)
-			round := RPSRound{
-				opponentShape: letterToHandShape(choices[0]),
-				strategyShape: letterToHandShape(choices[1]),
+
+			round := RPSRound{}
+			switch part {
+			case part1:
+				round = RPSRound{
+					opponentShape: letterToHandShape(choices[0]),
+					strategyShape: letterToHandShape(choices[1]),
+				}
+			case part2:
+				round = RPSRound{
+					opponentShape: letterToHandShape(choices[0]),
+					strategyShape: letterToHandShape(choices[1]),
+				}
+			default:
+				panic(fmt.Sprintf("Unrecognized part: %d", part))
 			}
 			rounds <- round
 		}
