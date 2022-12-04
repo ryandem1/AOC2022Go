@@ -43,13 +43,14 @@ func getRounds(part day2Part) chan RPSRound {
 			switch part {
 			case part1:
 				round = RPSRound{
-					opponentShape: letterToHandShape(choices[0]),
-					strategyShape: letterToHandShape(choices[1]),
+					opponentShape: letterToHandShapePart1(choices[0]),
+					strategyShape: letterToHandShapePart1(choices[1]),
 				}
 			case part2:
+				opponentShape := letterToHandShapePart1(choices[0])
 				round = RPSRound{
-					opponentShape: letterToHandShape(choices[0]),
-					strategyShape: letterToHandShape(choices[1]),
+					opponentShape: opponentShape,
+					strategyShape: letterToHandShapePart2(choices[1], opponentShape),
 				}
 			default:
 				panic(fmt.Sprintf("Unrecognized part: %d", part))
