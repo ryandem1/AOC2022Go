@@ -2,7 +2,6 @@ package day3
 
 import (
 	"github.com/ryandem1/aoc_2022_go/common"
-	"log"
 )
 
 func Part1() (prioritySum int) {
@@ -40,8 +39,28 @@ func Part1() (prioritySum int) {
 // Part2 Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities
 // of those item types?
 func Part2() (prioritySum int) {
-	for rucksacks := range common.ReadChannelInChunks(readRucksacks(), 3) {
-		log.Println(rucksacks)
+	priorities := getPriorities()
+	priorityToLetter := common.ReverseMap(priorities)
+
+	for elfGroup := range common.ReadChannelInChunks(readRucksacks(), 3) {
+		var occurrences [3][57]int
+		var badge rune
+
+		for i, rucksack := range elfGroup {
+			for _, item := range rucksack.compartment1 + rucksack.compartment2 {
+				occurrences[i][priorities[item]]++
+			}
+		}
+
+		for i := 0; i < 57; i++ {
+			if occurrences[0][i] >= 1 && occurrences[1][i] >= 1 && occurrences[2][i] >= 1 {
+				badge = priorityToLetter[i]
+			}
+		}
+		if badge == 0 {
+			panic("Did not locate a badge!")
+		}
+		prioritySum += priorities[badge]
 	}
 	return prioritySum
 }
