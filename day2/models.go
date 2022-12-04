@@ -26,7 +26,8 @@ func letterToHandShape(letter string) handShape {
 	}
 }
 
-type round struct {
+// RPSRound represents a single round of rock-paper-scissors between the opponent and strategy
+type RPSRound struct {
 	opponentShape handShape
 	strategyShape handShape
 }
