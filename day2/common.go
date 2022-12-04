@@ -33,7 +33,7 @@ func winningShape(shape1 *handShape, shape2 *handShape) *handShape {
 }
 
 // getRounds will read data from the input file, format it as a struct and send it through a channel
-func getRounds(part day2Part) chan RPSRound {
+func getRounds(part common.DayPart) chan RPSRound {
 	rounds := make(chan RPSRound)
 	go func() {
 		for line := range common.ReadLinesFromFile("day2") {
@@ -41,12 +41,12 @@ func getRounds(part day2Part) chan RPSRound {
 
 			round := RPSRound{}
 			switch part {
-			case part1:
+			case common.Part1:
 				round = RPSRound{
 					opponentShape: letterToHandShapePart1(choices[0]),
 					strategyShape: letterToHandShapePart1(choices[1]),
 				}
-			case part2:
+			case common.Part2:
 				opponentShape := letterToHandShapePart1(choices[0])
 				round = RPSRound{
 					opponentShape: opponentShape,
