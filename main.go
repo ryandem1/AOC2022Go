@@ -27,11 +27,20 @@ func printSolutions(solutions ...solution) {
 
 func main() {
 	day := os.Args[1]
-	visualize := os.Args[2]
+	visualize := false
+
+	if len(os.Args) == 3 {
+		if os.Args[2] == "-v" {
+			visualize = true
+		}
+	}
 
 	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n\n", day)
 	switch day {
 	case "day1":
+		if visualize {
+			panic(fmt.Sprintf("No visualization for %s", day))
+		}
 		printSolutions(
 			solution{
 				prompt: "Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?",
@@ -43,6 +52,9 @@ func main() {
 				answer: day1.Part2(),
 			})
 	case "day2":
+		if visualize {
+			panic(fmt.Sprintf("No visualization for %s", day))
+		}
 		printSolutions(
 			solution{
 				prompt: "What would your total score be if everything goes exactly according to your strategy guide?",
@@ -53,6 +65,9 @@ func main() {
 				answer: day2.Part2(),
 			})
 	case "day3":
+		if visualize {
+			panic(fmt.Sprintf("No visualization for %s", day))
+		}
 		printSolutions(
 			solution{
 				prompt: "What is the sum of the priorities of those item types?",
@@ -63,7 +78,7 @@ func main() {
 				answer: day3.Part2(),
 			})
 	case "day4":
-		if visualize == "-v" {
+		if visualize {
 			day4.Visualize()
 			break
 		}
