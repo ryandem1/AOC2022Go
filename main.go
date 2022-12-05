@@ -64,7 +64,6 @@ func main() {
 			})
 	case "day4":
 		if visualize == "-v" {
-			log.Println("DAY 4 VISUALIZATION")
 			day4.Visualize()
 			break
 		}
