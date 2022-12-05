@@ -6,6 +6,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day2"
 	"github.com/ryandem1/aoc_2022_go/day3"
 	"github.com/ryandem1/aoc_2022_go/day4"
+	"github.com/ryandem1/aoc_2022_go/day5"
 	"log"
 	"os"
 )
@@ -91,6 +92,13 @@ func main() {
 				prompt: "In how many assignment pairs do the ranges overlap?",
 				answer: day4.Part2(),
 			})
+	case "day5":
+		printSolutions(
+			solution{
+				prompt: "After the rearrangement procedure completes, what crate ends up on top of each stack?",
+				answer: day5.Part1(),
+			})
+
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
