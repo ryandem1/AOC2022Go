@@ -5,6 +5,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day1"
 	"github.com/ryandem1/aoc_2022_go/day2"
 	"github.com/ryandem1/aoc_2022_go/day3"
+	"github.com/ryandem1/aoc_2022_go/day4"
 	"log"
 	"os"
 )
@@ -58,6 +59,12 @@ func main() {
 			solution{
 				prompt: "What is the sum of the priorities of those item types?",
 				answer: day3.Part2(),
+			})
+	case "day4":
+		printSolutions(
+			solution{
+				prompt: "In how many assignment pairs does one range fully contain the other?",
+				answer: day4.Part1(),
 			})
 	default:
 		log.Fatal("Unimplemented or invalid day!")
