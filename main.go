@@ -27,6 +27,8 @@ func printSolutions(solutions ...solution) {
 
 func main() {
 	day := os.Args[1]
+	visualize := os.Args[2]
+
 	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n\n", day)
 	switch day {
 	case "day1":
@@ -61,6 +63,11 @@ func main() {
 				answer: day3.Part2(),
 			})
 	case "day4":
+		if visualize == "-v" {
+			log.Println("DAY 4 VISUALIZATION")
+			day4.Visualize()
+			break
+		}
 		printSolutions(
 			solution{
 				prompt: "In how many assignment pairs does one range fully contain the other?",
