@@ -86,6 +86,10 @@ func main() {
 			solution{
 				prompt: "In how many assignment pairs does one range fully contain the other?",
 				answer: day4.Part1(),
+			},
+			solution{
+				prompt: "In how many assignment pairs do the ranges overlap?",
+				answer: day4.Part2(),
 			})
 	default:
 		log.Fatal("Unimplemented or invalid day!")
