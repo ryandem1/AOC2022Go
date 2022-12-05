@@ -1,4 +1,4 @@
-# AOC2022Go
+# aoc-2022-go
 Advent of Code 2022 In Go
 
 Detailed problems/prompts can be found here: [Advent of Code 2022](https://adventofcode.com/2022)
