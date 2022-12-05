@@ -9,33 +9,58 @@ import (
 	"os"
 )
 
+type solution struct {
+	prompt string
+	answer any
+}
+
+// printSolutions will take a set of solution items that are part of the same day and print them in a standardized way
+func printSolutions(solutions ...solution) {
+	for i, s := range solutions {
+		log.Println(s.prompt)
+		log.Println(fmt.Sprintf("Part %d Answer:", i+1))
+		log.Println(">>>", s.answer, "<<<")
+		fmt.Println()
+	}
+}
+
 func main() {
 	day := os.Args[1]
-	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n", day)
+	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n\n", day)
 	switch day {
 	case "day1":
-		log.Println("Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?")
-		log.Println("Part 1 Answer:", day1.Part1())
-		fmt.Println()
-		log.Println(
-			"Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying " +
-				"in total?",
-		)
-		log.Println("Part 2 Answer:", day1.Part2())
+		printSolutions(
+			solution{
+				prompt: "Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?",
+				answer: day1.Part1(),
+			},
+			solution{
+				prompt: "Find the top three Elves carrying the most Calories. How many Calories are those Elves " +
+					"carrying in total?",
+				answer: day1.Part2(),
+			})
 	case "day2":
-		log.Println("What would your total score be if everything goes exactly according to your strategy guide?")
-		log.Println("Part 1 Answer:", day2.Part1())
-		fmt.Println()
-		log.Println("What would your total score be if everything goes exactly according to your strategy guide?")
-		log.Println("Part 2 Answer:", day2.Part2())
+		printSolutions(
+			solution{
+				prompt: "What would your total score be if everything goes exactly according to your strategy guide?",
+				answer: day2.Part1(),
+			},
+			solution{
+				prompt: "What would your total score be if everything goes exactly according to your strategy guide?",
+				answer: day2.Part2(),
+			})
 	case "day3":
-		log.Println("What is the sum of the priorities of those item types?")
-		log.Println("Part 1 Answer:", day3.Part1())
-		fmt.Println()
-		log.Println("What is the sum of the priorities of those item types?")
-		log.Println("Part 2 Answer:", day3.Part2())
+		printSolutions(
+			solution{
+				prompt: "What is the sum of the priorities of those item types?",
+				answer: day3.Part1(),
+			},
+			solution{
+				prompt: "What is the sum of the priorities of those item types?",
+				answer: day3.Part2(),
+			})
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
-	fmt.Println("\n--------------------------------------------------------------------------------------------------------------------")
+	fmt.Println("--------------------------------------------------------------------------------------------------------------------")
 }
