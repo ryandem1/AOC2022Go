@@ -17,9 +17,22 @@ func getInitialStacks() map[string]string {
 		}
 		headerLines = append(headerLines, line)
 	}
+
 	stackLabels := strings.Fields(headerLines[len(headerLines)-1])
 	for _, label := range stackLabels {
 		stacks[label] = ""
+	}
+
+	// Read from bottom to top of stack
+	for iHeaderLine := len(headerLines) - 2; iHeaderLine >= 0; iHeaderLine-- {
+		line := headerLines[iHeaderLine]
+
+		iStack := 0
+
+		for iLine := 1; iLine < len(line); iLine += 4 {
+			stacks[stackLabels[iStack]] += string(line[iLine])
+			iStack++
+		}
 	}
 
 	return stacks
