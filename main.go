@@ -9,6 +9,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day5"
 	"log"
 	"os"
+	"strings"
 )
 
 type solution struct {
@@ -29,6 +30,8 @@ func printSolutions(solutions ...solution) {
 func main() {
 	day := os.Args[1]
 	visual := 0
+	halfLine := strings.Repeat("-", 56)
+	fullLine := strings.Repeat(halfLine, 2) + "----" // The extra ---- is to counter-balance the missing day txt
 
 	if len(os.Args) == 3 {
 		visual = 0
@@ -38,7 +41,7 @@ func main() {
 		}
 	}
 
-	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n\n", day)
+	fmt.Printf("\n%s%s%s\n", halfLine, day, halfLine)
 	switch day {
 	case "day1":
 		if visual != 0 {
@@ -87,6 +90,8 @@ func main() {
 		case 0: // No visualization option passed
 			break
 		case 1:
+			fmt.Println("VISUAL 1: Camp Sections Cleaning Assignment Pairs")
+			fmt.Println(fullLine)
 			day4.Visualize()
 		default:
 			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
@@ -111,8 +116,12 @@ func main() {
 		case 0: // No visualization option passed
 			break
 		case 1:
+			fmt.Println("VISUAL 1: CrateMover9000 Crane Actions Performed on Input")
+			fmt.Println(fullLine)
 			day5.Visualize(day5.CrateMover9000)
 		case 2:
+			fmt.Println("VISUAL 2: CrateMover9001 Crane Actions Performed on Input")
+			fmt.Println(fullLine)
 			day5.Visualize(day5.CrateMover9001)
 		default:
 			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
@@ -134,5 +143,5 @@ func main() {
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
-	fmt.Println("--------------------------------------------------------------------------------------------------------------------")
+	fmt.Println(fullLine)
 }

@@ -30,7 +30,7 @@ This will produce you a result like the following:
 
 Sometimes problems can be visualized through monospace textart representations. For those problems, you can run a 
 separate "visualize" command to generate the visualization. All visualizations will be saved with the filename:
-"visualization.txt".
+"day<dayNumber>-visualization-<visualizationNumber>.txt".
 
 These often come in handy when in comes to debugging, they can also be kind of cool sometimes.
 
@@ -41,23 +41,47 @@ To generate a visualization for a day that supports it run:
 
 `make visualize DAY=4`
 
-If it is successful, you should see:
+If it is successful, you should see something like:
 
 ```
 go build .
-./aoc_2022_go day4 -v > visualization.txt
+./aoc_2022_go day4 -visual1 > day4-visualization-1.txt
 rm ./aoc_2022_go
 ```
 
-If the day does not support visualization, you will see:
+If the day does not support visualization, you will see something like:
 
 ```
 go build .
-./aoc_2022_go day3 -v > visualization.txt
+./aoc_2022_go day3 -visual1 > day3-visualization-1.txt
 panic: No visualization for day3
 
 goroutine 1 [running]:
 main.main()
-        /Users/ryandemarigny/GolandProjects/AOC2022Go/main.go:69 +0x440
+        /Users/ryandemarigny/GolandProjects/aoc-2022-go/main.go:75 +0x8dc
 make: *** [visualize] Error 2
 ```
+
+### Days with multiple visualizations
+Some days might support multiple visualizations. By default, running `make visualize DAY=4` will generate VISUAL #1.
+
+To run a different visualization for a day, run:
+
+`make visualize DAY=5 VISUAL=2`
+
+You can replace the `VISUAL` number with the number of the visualization you want to run. If the visualization number
+specified does not exist for the day, you will see the following error:
+
+```
+go build .
+./aoc_2022_go day5 -visual3 > day5-visualization-3.txt
+panic: Only have 2 available visualization(s)
+
+goroutine 1 [running]:
+main.main()
+        /Users/ryandemarigny/GolandProjects/aoc-2022-go/main.go:127 +0x848
+make: *** [visualize] Error 2
+```
+
+Note that it will tell you the total amount of visualizations for that day in the error: 
+`panic: Only have 2 available visualization(s)`
