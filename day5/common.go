@@ -3,6 +3,7 @@ package day5
 import (
 	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
+	"sort"
 	"strings"
 )
 
@@ -20,6 +21,8 @@ func getInitialStacks() map[string]string {
 	}
 
 	stackLabels := strings.Fields(headerLines[len(headerLines)-1])
+	sort.Strings(stackLabels)
+
 	for _, label := range stackLabels {
 		stacks[label] = ""
 	}

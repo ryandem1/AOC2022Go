@@ -19,10 +19,9 @@ func prettyPrintStacks(stacks map[string]string) {
 	}
 
 	lines := make([]string, largestStackSize+2)
-	lines[largestStackSize+1] = labelLine
 	for _, stackLabel := range common.SortedKeys(stacks) {
 		stack := stacks[stackLabel]
-		for iStack := largestStackSize; iStack >= 0; iStack-- {
+		for iStack := largestStackSize + 1; iStack >= 0; iStack-- {
 			if iStack > len(stack)-1 {
 				lines[iStack] += "   "
 			} else {
@@ -31,7 +30,8 @@ func prettyPrintStacks(stacks map[string]string) {
 			lines[iStack] += " "
 		}
 	}
-	for _, line := range lines {
-		fmt.Println(line)
+	lines = append([]string{labelLine}, lines...) // Prepend label line
+	for iLines := len(lines) - 1; iLines >= 0; iLines-- {
+		fmt.Println(lines[iLines])
 	}
 }
