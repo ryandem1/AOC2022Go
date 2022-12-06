@@ -72,6 +72,7 @@ func readCraneActions() chan CraneAction {
 				panic(fmt.Sprintf("Could not parse line! Line: %s", line))
 			}
 			action := CraneAction{
+				text:     line,
 				quantity: quantity,
 				from:     from,
 				to:       to,

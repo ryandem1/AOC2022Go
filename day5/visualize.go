@@ -35,3 +35,19 @@ func prettyPrintStacks(stacks map[string]string) {
 		fmt.Println(lines[iLines])
 	}
 }
+
+// Visualize will provide an interactive supplyStacks supply that can visualize how the stack changes with each new
+// crane action
+func Visualize() {
+	stacks := getInitialStacks()
+	fmt.Println("INITIAL STACK:")
+	prettyPrintStacks(stacks)
+
+	for action := range readCraneActions() {
+		fmt.Println("--------------------------------------------------------------------------------------------------------------------")
+		fmt.Println("ACTION: " + action.text)
+
+		stacks = applyAction(stacks, action)
+		prettyPrintStacks(stacks)
+	}
+}

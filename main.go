@@ -93,6 +93,10 @@ func main() {
 				answer: day4.Part2(),
 			})
 	case "day5":
+		if visualize {
+			day5.Visualize()
+			break
+		}
 		printSolutions(
 			solution{
 				prompt: "After the rearrangement procedure completes, what crate ends up on top of each stack?",
