@@ -31,7 +31,10 @@ func getInitialStacks() map[string]string {
 		iStack := 0
 
 		for iLine := 1; iLine < len(line); iLine += 4 {
-			stacks[stackLabels[iStack]] += string(line[iLine])
+			value := string(line[iLine])
+			if value != " " {
+				stacks[stackLabels[iStack]] += value
+			}
 			iStack++
 		}
 	}
@@ -58,7 +61,7 @@ func readCraneActions() chan CraneAction {
 			var to string
 			var from string
 
-			numParsed, err := fmt.Sscanf(line, "move %d from %s to %s", &quantity, &to, &from)
+			numParsed, err := fmt.Sscanf(line, "move %d from %s to %s", &quantity, &from, &to)
 			if err != nil {
 				panic(err)
 			}
@@ -67,12 +70,26 @@ func readCraneActions() chan CraneAction {
 			}
 			action := CraneAction{
 				quantity: quantity,
-				from:     to,
-				to:       from,
+				from:     from,
+				to:       to,
 			}
 			actions <- action
 		}
 		close(actions)
 	}()
 	return actions
+}
+
+// applyAction will apply an action on a map of supplyStacks. Will return the altered stack
+func applyAction(supplyStacks map[string]string, action CraneAction) map[string]string {
+	fStack := supplyStacks[action.from]
+	tStack := supplyStacks[action.to]
+
+	supplies := fStack[len(fStack)-action.quantity:] // Take off the top of from stack
+	fStack = fStack[:len(fStack)-action.quantity]
+
+	tStack += supplies // Add to the destination stack
+	supplyStacks[action.from] = fStack
+	supplyStacks[action.to] = tStack
+	return supplyStacks
 }
