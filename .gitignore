@@ -16,4 +16,4 @@
 .idea
 
 # Project Specific
-visualization.txt
+day*-visualization-*.txt

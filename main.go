@@ -28,18 +28,20 @@ func printSolutions(solutions ...solution) {
 
 func main() {
 	day := os.Args[1]
-	visualize := false
+	visual := 0
 
 	if len(os.Args) == 3 {
-		if os.Args[2] == "-v" {
-			visualize = true
+		visual = 0
+		parsedCount, err := fmt.Sscanf(os.Args[2], "-visual%d", &visual)
+		if parsedCount == 0 || err != nil {
+			panic("Invalid visualization parameter. Must be formatted like: '-visual1'")
 		}
 	}
 
 	fmt.Printf("\n--------------------------------------------------------%s--------------------------------------------------------\n\n", day)
 	switch day {
 	case "day1":
-		if visualize {
+		if visual != 0 {
 			panic(fmt.Sprintf("No visualization for %s", day))
 		}
 		printSolutions(
@@ -53,7 +55,7 @@ func main() {
 				answer: day1.Part2(),
 			})
 	case "day2":
-		if visualize {
+		if visual != 0 {
 			panic(fmt.Sprintf("No visualization for %s", day))
 		}
 		printSolutions(
@@ -66,7 +68,7 @@ func main() {
 				answer: day2.Part2(),
 			})
 	case "day3":
-		if visualize {
+		if visual != 0 {
 			panic(fmt.Sprintf("No visualization for %s", day))
 		}
 		printSolutions(
@@ -79,10 +81,20 @@ func main() {
 				answer: day3.Part2(),
 			})
 	case "day4":
-		if visualize {
-			day4.Visualize()
+		availableVisualizations := 1
+
+		switch visual {
+		case 0: // No visualization option passed
 			break
+		case 1:
+			day4.Visualize()
+		default:
+			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
 		}
+		if visual > 0 {
+			break // Don't print solutions if visualize was passed
+		}
+
 		printSolutions(
 			solution{
 				prompt: "In how many assignment pairs does one range fully contain the other?",
@@ -93,14 +105,30 @@ func main() {
 				answer: day4.Part2(),
 			})
 	case "day5":
-		if visualize {
-			day5.Visualize()
+		availableVisualizations := 2
+
+		switch visual {
+		case 0: // No visualization option passed
 			break
+		case 1:
+			day5.Visualize(day5.CrateMover9000)
+		case 2:
+			day5.Visualize(day5.CrateMover9001)
+		default:
+			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
 		}
+		if visual > 0 {
+			break // Don't print solutions if visualize was passed
+		}
+
 		printSolutions(
 			solution{
 				prompt: "After the rearrangement procedure completes, what crate ends up on top of each stack?",
 				answer: day5.Part1(),
+			},
+			solution{
+				prompt: "After the rearrangement procedure completes, what crate ends up on top of each stack?",
+				answer: day5.Part2(),
 			})
 
 	default:

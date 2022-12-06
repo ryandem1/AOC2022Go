@@ -7,7 +7,23 @@ func Part1() (topOfEachStack string) {
 	stacks := getInitialStacks()
 
 	for action := range readCraneActions() {
-		stacks = applyAction(stacks, action)
+		stacks = applyAction(stacks, action, CrateMover9000)
+	}
+
+	for _, stackLabel := range common.SortedKeys(stacks) {
+		stack := stacks[stackLabel]
+		topOfEachStack += string(stack[len(stack)-1])
+	}
+
+	return topOfEachStack
+}
+
+// Part2 After the rearrangement procedure completes, what crate ends up on top of each stack?
+func Part2() (topOfEachStack string) {
+	stacks := getInitialStacks()
+
+	for action := range readCraneActions() {
+		stacks = applyAction(stacks, action, CrateMover9001)
 	}
 
 	for _, stackLabel := range common.SortedKeys(stacks) {

@@ -85,11 +85,21 @@ func readCraneActions() chan CraneAction {
 }
 
 // applyAction will apply an action on a map of supplyStacks. Will return the altered stack
-func applyAction(supplyStacks map[string]string, action CraneAction) map[string]string {
+func applyAction(supplyStacks map[string]string, action CraneAction, mover crateMover) map[string]string {
 	fStack := supplyStacks[action.from]
 	tStack := supplyStacks[action.to]
 
-	supplies := common.ReverseString(fStack[len(fStack)-action.quantity:]) // Take off the top of from stack
+	// Take off the top of from stack
+	supplies := ""
+	switch mover {
+	case CrateMover9000:
+		supplies = common.ReverseString(fStack[len(fStack)-action.quantity:])
+	case CrateMover9001:
+		supplies = fStack[len(fStack)-action.quantity:]
+	default:
+		panic(fmt.Sprintf("Unrecognized crate mover model: %d", mover))
+	}
+
 	fStack = fStack[:len(fStack)-action.quantity]
 
 	tStack += supplies // Add to the destination stack

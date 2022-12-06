@@ -3,6 +3,7 @@ package day5
 import (
 	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
+	"strings"
 )
 
 // prettyPrintStacks will print out the stacks that are used in processing in the original format from the prompt
@@ -37,17 +38,17 @@ func prettyPrintStacks(stacks map[string]string) {
 }
 
 // Visualize will provide an interactive supplyStacks supply that can visualize how the stack changes with each new
-// crane action
-func Visualize() {
+// crane action. Must select which mover spec (either the 9000 or 9001), because it changes how actions are applied
+func Visualize(mover crateMover) {
 	stacks := getInitialStacks()
 	fmt.Println("INITIAL STACK:")
 	prettyPrintStacks(stacks)
 
 	for action := range readCraneActions() {
-		fmt.Println("--------------------------------------------------------------------------------------------------------------------")
+		fmt.Println(strings.Repeat("-", 50))
 		fmt.Println("ACTION: " + action.text)
 
-		stacks = applyAction(stacks, action)
+		stacks = applyAction(stacks, action, mover)
 		prettyPrintStacks(stacks)
 	}
 }
