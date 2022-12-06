@@ -1,6 +1,7 @@
 package day5
 
 import (
+	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 	"strings"
 )
@@ -36,4 +37,42 @@ func getInitialStacks() map[string]string {
 	}
 
 	return stacks
+}
+
+// readCraneActions will read the input file from the header down, parse the actions into the struct and send it
+// through the channel
+func readCraneActions() chan CraneAction {
+	actions := make(chan CraneAction)
+
+	go func() {
+		pastHeader := false
+		for line := range common.ReadLinesFromFile("day5") {
+			if line == "" { // Blank line determines end of header
+				pastHeader = true
+				continue
+			}
+			if !pastHeader {
+				continue
+			}
+			var quantity int
+			var to string
+			var from string
+
+			numParsed, err := fmt.Sscanf(line, "move %d from %s to %s", &quantity, &to, &from)
+			if err != nil {
+				panic(err)
+			}
+			if numParsed != 3 {
+				panic(fmt.Sprintf("Could not parse line! Line: %s", line))
+			}
+			action := CraneAction{
+				quantity: quantity,
+				from:     to,
+				to:       from,
+			}
+			actions <- action
+		}
+		close(actions)
+	}()
+	return actions
 }
