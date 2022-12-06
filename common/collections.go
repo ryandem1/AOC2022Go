@@ -13,6 +13,16 @@ func ReverseMap[__K comparable, __V comparable](m map[__K]__V) map[__V]__K {
 	return n
 }
 
+// ReverseString will take in a string a return the reversed string
+func ReverseString(s string) string {
+	rns := []rune(s)
+	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
+		rns[i], rns[j] = rns[j], rns[i]
+	}
+
+	return string(rns)
+}
+
 // SortedKeys will sort a map of string keys by keys and return the keys
 func SortedKeys[__V any](m map[string]__V) []string {
 	keys := make([]string, 0, len(m))

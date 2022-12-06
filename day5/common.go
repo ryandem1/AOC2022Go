@@ -89,7 +89,7 @@ func applyAction(supplyStacks map[string]string, action CraneAction) map[string]
 	fStack := supplyStacks[action.from]
 	tStack := supplyStacks[action.to]
 
-	supplies := fStack[len(fStack)-action.quantity:] // Take off the top of from stack
+	supplies := common.ReverseString(fStack[len(fStack)-action.quantity:]) // Take off the top of from stack
 	fStack = fStack[:len(fStack)-action.quantity]
 
 	tStack += supplies // Add to the destination stack
