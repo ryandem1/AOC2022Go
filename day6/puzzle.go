@@ -4,13 +4,20 @@ import (
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
-// Part1 How many characters need to be processed before the first start-of-packet marker is detected?
-func Part1() (numCharacters int) {
+// Day6
+// Part 1: How many characters need to be processed before the first start-of-packet marker is detected?
+// Part 2: How many characters need to be processed before the first start-of-message marker is detected?
+func Day6(part common.DayPart) (numCharacters int) {
+	distinctCharsNeededForSignal := 4
+	if part == common.Part2 {
+		distinctCharsNeededForSignal = 14
+	}
+
 	line := <-common.ReadLinesFromFile("day6")
-	numCharacters += 4
+	numCharacters += distinctCharsNeededForSignal
 	found := false
 
-	for window := range common.ReadSliceWithWindow([]rune(line), 4) {
+	for window := range common.ReadSliceWithWindow([]rune(line), distinctCharsNeededForSignal) {
 		if len(window) < 4 {
 			continue // window must have 4 values to be considered
 		}

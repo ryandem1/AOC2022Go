@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/ryandem1/aoc_2022_go/common"
 	"github.com/ryandem1/aoc_2022_go/day1"
 	"github.com/ryandem1/aoc_2022_go/day2"
 	"github.com/ryandem1/aoc_2022_go/day3"
@@ -144,7 +145,11 @@ func main() {
 		printSolutions(
 			solution{
 				prompt: "How many characters need to be processed before the first start-of-packet marker is detected?",
-				answer: day6.Part1(),
+				answer: day6.Day6(common.Part1),
+			},
+			solution{
+				prompt: "How many characters need to be processed before the first start-of-message marker is detected?",
+				answer: day6.Day6(common.Part2),
 			})
 
 	default:
