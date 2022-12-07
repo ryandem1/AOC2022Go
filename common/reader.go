@@ -69,3 +69,20 @@ func ReadChannelInChunks[__T any, __C chan __T](channel __C, chunkSize int) chan
 	}()
 	return chunkedChannel
 }
+
+// ReadSliceWithWindow will create a moving window through the slice and yield the window through a channel
+func ReadSliceWithWindow[__T any](sl []__T, chunkSize int) chan []__T {
+	chunks := make(chan []__T)
+
+	go func() {
+		for i := 0; i < len(sl); i++ {
+			end := i + chunkSize
+			if end > len(sl) {
+				end = len(sl)
+			}
+			chunks <- sl[i:end]
+		}
+		close(chunks)
+	}()
+	return chunks
+}

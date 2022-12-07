@@ -34,16 +34,3 @@ func SortedKeys[__V any](m map[string]__V) []string {
 
 	return keys
 }
-
-// CheckAll will take in a function that returns a bool and perform it on all items in the slice. Will return True if
-// all check function calls return True, else will return False
-func CheckAll[__I any](items []__I, check func(__I) bool) bool {
-	result := true
-	for _, item := range items {
-		if !check(item) {
-			result = false
-			break
-		}
-	}
-	return result
-}
