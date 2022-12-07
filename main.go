@@ -9,6 +9,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day4"
 	"github.com/ryandem1/aoc_2022_go/day5"
 	"github.com/ryandem1/aoc_2022_go/day6"
+	"github.com/ryandem1/aoc_2022_go/day7"
 	"log"
 	"os"
 	"strings"
@@ -150,6 +151,13 @@ func main() {
 			solution{
 				prompt: "How many characters need to be processed before the first start-of-message marker is detected?",
 				answer: day6.Day6(common.Part2),
+			})
+	case "day7":
+		printSolutions(
+			solution{
+				prompt: "Find all of the directories with a total size of at most 100000. What is the sum of the " +
+					"total sizes of those directories?",
+				answer: day7.Part1(),
 			})
 
 	default:
