@@ -18,8 +18,8 @@ func Day6(part common.DayPart) (numCharacters int) {
 	found := false
 
 	for window := range common.ReadSliceWithWindow([]rune(line), distinctCharsNeededForSignal) {
-		if len(window) < 4 {
-			continue // window must have 4 values to be considered
+		if len(window) < distinctCharsNeededForSignal {
+			continue // window must have 4 or 14 values to be considered
 		}
 
 		charOccurrences := make(map[rune]int)
