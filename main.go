@@ -7,6 +7,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day3"
 	"github.com/ryandem1/aoc_2022_go/day4"
 	"github.com/ryandem1/aoc_2022_go/day5"
+	"github.com/ryandem1/aoc_2022_go/day6"
 	"log"
 	"os"
 	"strings"
@@ -138,6 +139,12 @@ func main() {
 			solution{
 				prompt: "After the rearrangement procedure completes, what crate ends up on top of each stack?",
 				answer: day5.Part2(),
+			})
+	case "day6":
+		printSolutions(
+			solution{
+				prompt: "How many characters need to be processed before the first start-of-packet marker is detected?",
+				answer: day6.Part1(),
 			})
 
 	default:
