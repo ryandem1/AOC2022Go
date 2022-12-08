@@ -26,6 +26,14 @@ type comTerminal struct {
 func (terminal *comTerminal) cd(dirName string) {
 	var directory *comDirectory
 
+	if dirName == ".." {
+		if terminal.curDir.parent == nil {
+			panic("Cannot go up a directory, already at the root!")
+		}
+		terminal.curDir = terminal.curDir.parent
+		return
+	}
+
 	directory = common.FindOneObj(terminal.curDir.directories, func(dir *comDirectory) bool {
 		return dir.name == dirName
 	})
