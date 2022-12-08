@@ -38,8 +38,25 @@ func (terminal *comTerminal) cd(dirName string) {
 			files:       []*comFile{},
 		}
 
-		terminal.curDir.directories = append(terminal.curDir.directories, directory)
+		if terminal.curDir != nil {
+			terminal.curDir.directories = append(terminal.curDir.directories, directory)
+		}
 	}
 
 	terminal.curDir = directory
+}
+
+// ls will list all files/directories in the current directory. Because our goal is to play back terminal commands that
+// have already been run, this really assumes that we have the output of the real terminal ls command. This function
+// will take that real output and add to the knowledge of curDir
+func (terminal *comTerminal) ls(files []*comFile, dirs []*comDirectory) {
+	if terminal.curDir == nil {
+		panic("Cannot perform ls, nil directory pointer")
+	}
+	if len(files) > 0 {
+		terminal.curDir.files = append(terminal.curDir.files, files...)
+	}
+	if len(dirs) > 0 {
+		terminal.curDir.directories = append(terminal.curDir.directories, dirs...)
+	}
 }
