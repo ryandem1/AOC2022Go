@@ -18,3 +18,8 @@ type comDirectory struct {
 type comTerminal struct {
 	curDir *comDirectory
 }
+
+func newTerminal() *comTerminal {
+	term := &comTerminal{curDir: nil}
+	return term
+}

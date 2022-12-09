@@ -86,3 +86,17 @@ func ReadSliceWithWindow[__T any](sl []__T, chunkSize int) chan []__T {
 	}()
 	return chunks
 }
+
+// AddChannelBuffer will create a proxy channel for whatever channel is passed and provider a buffer. Good for channels
+// that were initially created buffer-less. This is probably a bad design.
+func AddChannelBuffer[T any](input chan T, bufferSize int) chan T {
+	bufferedOutput := make(chan T, bufferSize)
+
+	go func() {
+		for item := range input {
+			bufferedOutput <- item
+		}
+		close(bufferedOutput)
+	}()
+	return bufferedOutput
+}

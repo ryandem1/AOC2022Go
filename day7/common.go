@@ -10,9 +10,11 @@ import (
 // addNewDirIfNotExists will add a new directory (initialized by dirName) to the terminal's current directory if it is
 // not already there (checks by name). Will also return the directory either retrieved or created.
 func (terminal *comTerminal) addNewDirIfNotExists(dirName string) (directory *comDirectory) {
-	directory = common.FindOneObj(terminal.curDir.directories, func(dir *comDirectory) bool {
-		return dir.name == dirName
-	})
+	if terminal.curDir != nil {
+		directory = common.FindOneObj(terminal.curDir.directories, func(dir *comDirectory) bool {
+			return dir.name == dirName
+		})
+	}
 
 	if directory == nil {
 		directory = &comDirectory{
@@ -63,7 +65,9 @@ func (terminal *comTerminal) ls(files []*comFile, dirNames []string) {
 
 // executeCommand will read from a string channel of the command lines. Will return ok if a command was executed, or
 // else it will return false, indicating that there are no more commands to read from the input.
-func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
+func (terminal *comTerminal) executeCommand(cmdOutputReader chan string) (ok bool) {
+	// Need to add a buffer because we will be placing a single value back into the channel
+	cmdOutput := common.AddChannelBuffer(cmdOutputReader, 1)
 	cmdLine, ok := <-cmdOutput
 	if !ok {
 		return ok
@@ -72,7 +76,7 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
 	cmd := strings.Fields(cmdLine)
 
 	if cmd[0] != "$" {
-		panic("Next line is not a command! Something is wrong...")
+		panic("Next line is not a command! Something is wrong..." + fmt.Sprintf("Line: %s", cmdLine))
 	}
 
 	commandType := cmd[1]
@@ -89,7 +93,10 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
 			lsItem := strings.Fields(lsLine)
 
 			if lsItem[0] == "$" {
-				cmdOutput <- lsLine // We have reach the next command, so our ls output is done, we must send line back
+				// We have reach the next command, so our ls output is done, we must send line back
+				go func() {
+					cmdOutput <- lsLine
+				}()
 				break
 			} else if lsItem[0] == "dir" {
 				dirName := lsItem[1]
