@@ -31,3 +31,9 @@ func newTerminal() *comTerminal {
 	term := &comTerminal{curDir: nil}
 	return term
 }
+
+// ExeReceipt provides some helpful information regarding the result of a command execution
+type ExeReceipt struct {
+	nextCommand string // this only gets populated for ls commands
+	ok          bool   // Will be false when there are no more commmands to execute from the channel
+}

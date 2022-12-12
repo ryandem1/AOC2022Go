@@ -65,11 +65,15 @@ func (terminal *comTerminal) ls(files []*comFile, dirNames []string) {
 
 // executeCommand will read from a string channel of the command lines. Will return ok if a command was executed, or
 // else it will return false, indicating that there are no more commands to read from the input.
-func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
+func (terminal *comTerminal) executeCommand(cmdOutput chan string) *ExeReceipt {
 	// Need to add a buffer because we will be placing a single value back into the channel
 	cmdLine, ok := <-cmdOutput
+	receipt := &ExeReceipt{
+		nextCommand: "",
+		ok:          ok,
+	}
 	if !ok {
-		return ok
+		return receipt
 	}
 
 	cmd := strings.Fields(cmdLine)
@@ -92,7 +96,9 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
 			lsItem := strings.Fields(lsLine)
 
 			if lsItem[0] == "$" {
-				// We have reach the next command, so our ls output is done, we must send line back
+				// We have reach the next command, so our ls output is done, we can include the next command in the
+				// receipt
+				receipt.nextCommand = lsLine
 				break
 			} else if lsItem[0] == "dir" {
 				dirName := lsItem[1]
@@ -113,5 +119,5 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
 	default:
 		panic(fmt.Sprintf("Unhandled/invalid command type: %s", commandType))
 	}
-	return ok
+	return receipt
 }
