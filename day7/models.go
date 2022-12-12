@@ -19,6 +19,9 @@ func (dir *comDirectory) totalSize() (totalSize int) {
 	for _, file := range dir.files {
 		totalSize += file.size
 	}
+	for _, childDir := range dir.directories {
+		totalSize += childDir.totalSize()
+	}
 	return totalSize
 }
 
