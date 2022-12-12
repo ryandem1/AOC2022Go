@@ -14,6 +14,14 @@ type comDirectory struct {
 	files       []*comFile
 }
 
+// totalSize will return the size of all comFile objections in a comDirectory
+func (dir *comDirectory) totalSize() (totalSize int) {
+	for _, file := range dir.files {
+		totalSize += file.size
+	}
+	return totalSize
+}
+
 // comTerminal represents a single terminal session on an elf's communication device
 type comTerminal struct {
 	curDir *comDirectory

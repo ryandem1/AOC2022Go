@@ -1,7 +1,6 @@
 package day7
 
 import (
-	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -10,12 +9,18 @@ import (
 func Part1() (totalSize int) {
 	terminal := newTerminal()
 	lineReader := common.ReadLinesFromFile("day7")
+	dirSizes := make(map[string]int) // comDir name, comDir total size
 
 	ok := true
 	for ok {
 		ok = terminal.executeCommand(lineReader)
-		fmt.Println(terminal.curDir)
+		dirSizes[terminal.curDir.name] = terminal.curDir.totalSize()
 	}
-	close(lineReader)
+
+	for _, dirSize := range dirSizes {
+		if dirSize > 1000000 {
+			totalSize += dirSize
+		}
+	}
 	return totalSize
 }

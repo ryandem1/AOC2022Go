@@ -2,6 +2,7 @@ package common
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -94,6 +95,7 @@ func AddChannelBuffer[T any](input chan T, bufferSize int) chan T {
 
 	go func() {
 		for item := range input {
+			fmt.Println(item)
 			bufferedOutput <- item
 		}
 		close(bufferedOutput)

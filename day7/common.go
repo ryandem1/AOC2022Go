@@ -65,9 +65,8 @@ func (terminal *comTerminal) ls(files []*comFile, dirNames []string) {
 
 // executeCommand will read from a string channel of the command lines. Will return ok if a command was executed, or
 // else it will return false, indicating that there are no more commands to read from the input.
-func (terminal *comTerminal) executeCommand(cmdOutputReader chan string) (ok bool) {
+func (terminal *comTerminal) executeCommand(cmdOutput chan string) (ok bool) {
 	// Need to add a buffer because we will be placing a single value back into the channel
-	cmdOutput := common.AddChannelBuffer(cmdOutputReader, 1)
 	cmdLine, ok := <-cmdOutput
 	if !ok {
 		return ok
@@ -94,9 +93,6 @@ func (terminal *comTerminal) executeCommand(cmdOutputReader chan string) (ok boo
 
 			if lsItem[0] == "$" {
 				// We have reach the next command, so our ls output is done, we must send line back
-				go func() {
-					cmdOutput <- lsLine
-				}()
 				break
 			} else if lsItem[0] == "dir" {
 				dirName := lsItem[1]
