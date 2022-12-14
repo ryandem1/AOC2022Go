@@ -1,6 +1,7 @@
 package day7
 
 import (
+	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -25,11 +26,17 @@ func Part1() (totalSize int) {
 		} else {
 			receipt = terminal.executeCommand(lineReader)
 		}
-		dirSizes[terminal.curDir.name] = terminal.curDir.totalSize()
 	}
 	close(cmdBuf)
-	for _, dirSize := range dirSizes {
-		if dirSize > 1000000 {
+
+	for terminal.curDir.name != "/" {
+		terminal.cd("..")
+	}
+	dirSizes = getChildDirSizes(terminal.curDir)
+
+	for dirName, dirSize := range dirSizes {
+		fmt.Println(dirName, dirSize)
+		if dirSize <= 100000 {
 			totalSize += dirSize
 		}
 	}

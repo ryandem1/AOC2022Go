@@ -121,3 +121,18 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) *ExeReceipt {
 	}
 	return receipt
 }
+
+// getChildDirSizes will return a map of directories (by name) and their sizes (int) contained in a directory
+func getChildDirSizes(dir *comDirectory) map[string]int {
+	dirSizes := make(map[string]int)
+	dirSizes[dir.path()] = dir.totalSize()
+
+	for _, childDir := range dir.directories {
+		childDirSizes := getChildDirSizes(childDir)
+
+		for dirName, dirSize := range childDirSizes {
+			dirSizes[dirName] = dirSize
+		}
+	}
+	return dirSizes
+}

@@ -25,6 +25,20 @@ func (dir *comDirectory) totalSize() (totalSize int) {
 	return totalSize
 }
 
+// path will return the absolute path of the current directory
+func (dir *comDirectory) path() string {
+	if dir.name == "/" {
+		return ""
+	}
+
+	path := "/" + dir.name
+
+	if dir.name != "/" {
+		path = dir.parent.path() + path
+	}
+	return path
+}
+
 // comTerminal represents a single terminal session on an elf's communication device
 type comTerminal struct {
 	curDir *comDirectory
@@ -38,5 +52,5 @@ func newTerminal() *comTerminal {
 // ExeReceipt provides some helpful information regarding the result of a command execution
 type ExeReceipt struct {
 	nextCommand string // this only gets populated for ls commands
-	ok          bool   // Will be false when there are no more commmands to execute from the channel
+	ok          bool   // Will be false when there are no more commands to execute from the channel
 }
