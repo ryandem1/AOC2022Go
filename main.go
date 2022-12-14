@@ -10,6 +10,7 @@ import (
 	"github.com/ryandem1/aoc_2022_go/day5"
 	"github.com/ryandem1/aoc_2022_go/day6"
 	"github.com/ryandem1/aoc_2022_go/day7"
+	"github.com/ryandem1/aoc_2022_go/day8"
 	"log"
 	"os"
 	"strings"
@@ -106,6 +107,11 @@ func main() {
 			panic(fmt.Sprintf("No visualization for %s", day))
 		}
 		printSolutions(day7.Part1(), day7.Part2())
+	case "day8":
+		if visual != 0 {
+			panic(fmt.Sprintf("No visualization for %s", day))
+		}
+		printSolutions(day8.Part1())
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}
