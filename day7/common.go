@@ -122,6 +122,33 @@ func (terminal *comTerminal) executeCommand(cmdOutput chan string) *ExeReceipt {
 	return receipt
 }
 
+// buildDirectoryFromInput will execute all commands from the day7 input file and will build the directory structure
+// the terminal's curDir will be reset to the root "/"
+func (terminal *comTerminal) buildDirectoryFromInput() {
+	lineReader := common.ReadLinesFromFile("day7")
+	cmdBuf := make(chan string) // To store the ls commands
+
+	receipt := &ExeReceipt{
+		nextCommand: "",
+		ok:          true,
+	}
+	for receipt.ok {
+		if receipt.nextCommand != "" {
+			go func() {
+				cmdBuf <- receipt.nextCommand
+			}()
+			receipt = terminal.executeCommand(cmdBuf)
+		} else {
+			receipt = terminal.executeCommand(lineReader)
+		}
+	}
+	close(cmdBuf)
+
+	for terminal.curDir.name != "/" {
+		terminal.cd("..")
+	}
+}
+
 // getChildDirSizes will return a map of directories (by name) and their sizes (int) contained in a directory
 func getChildDirSizes(dir *comDirectory) map[string]int {
 	dirSizes := make(map[string]int)

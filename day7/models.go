@@ -30,7 +30,6 @@ func (dir *comDirectory) path() string {
 	if dir.name == "/" {
 		return ""
 	}
-
 	path := "/" + dir.name
 
 	if dir.name != "/" {
