@@ -4,7 +4,12 @@ import (
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
-func Part1() (prioritySum int) {
+func Part1() (solution common.Solution) {
+	solution.Prompt = `
+What is the sum of the priorities of those item types?
+`
+	var prioritySum int
+
 	priorities := getPriorities()
 	priorityToLetter := common.ReverseMap(priorities)
 
@@ -33,12 +38,20 @@ func Part1() (prioritySum int) {
 		}
 		prioritySum += priorities[duplicatedLetter]
 	}
-	return prioritySum
+
+	solution.Answer = prioritySum
+	return solution
 }
 
-// Part2 Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities
-// of those item types?
-func Part2() (prioritySum int) {
+func Part2() (solution common.Solution) {
+	solution.Prompt = `
+Find the item type that corresponds to the badges of 
+each three-Elf group.
+
+What is the sum of the priorities of those item types?
+`
+	var prioritySum int
+
 	priorities := getPriorities()
 	priorityToLetter := common.ReverseMap(priorities)
 
@@ -62,5 +75,7 @@ func Part2() (prioritySum int) {
 		}
 		prioritySum += priorities[badge]
 	}
-	return prioritySum
+
+	solution.Answer = prioritySum
+	return solution
 }

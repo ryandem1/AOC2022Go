@@ -1,18 +1,31 @@
 package day1
 
-// Part1 Find the Elf carrying the most Calories. How many totalCalories is that Elf carrying?
-func Part1() (totalCalories int) {
+import "github.com/ryandem1/aoc_2022_go/common"
+
+func Part1() (solution common.Solution) {
+	solution.Prompt = `
+Find the Elf carrying the most Calories.
+How many totalCalories is that Elf carrying?
+`
+	var totalCalories int
+
 	for elf := range readElves() {
 		calories := elf.totalCaloriesHeld()
 		if calories > totalCalories {
 			totalCalories = calories
 		}
 	}
-	return totalCalories
+	solution.Answer = totalCalories
+	return solution
 }
 
-// Part2 Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?
-func Part2() (totalCalories int) {
+func Part2() (solution common.Solution) {
+	solution.Prompt = `
+Find the Elf carrying the most Calories.
+How many totalCalories is that Elf carrying?
+`
+	var totalCalories int
+
 	topThreeTotalCalories := [3]int{}
 
 	for elf := range readElves() {
@@ -35,5 +48,6 @@ func Part2() (totalCalories int) {
 		totalCalories += topCalories
 	}
 
-	return totalCalories
+	solution.Answer = totalCalories
+	return solution
 }

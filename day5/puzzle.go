@@ -2,8 +2,13 @@ package day5
 
 import "github.com/ryandem1/aoc_2022_go/common"
 
-// Part1 After the rearrangement procedure completes, what crate ends up on top of each stack?
-func Part1() (topOfEachStack string) {
+func Part1() (solution common.Solution) {
+	solution.Prompt = `
+After the rearrangement procedure completes, 
+what crate ends up on top of each stack?
+`
+	var topOfEachStack string
+
 	stacks := getInitialStacks()
 
 	for action := range readCraneActions() {
@@ -15,11 +20,16 @@ func Part1() (topOfEachStack string) {
 		topOfEachStack += string(stack[len(stack)-1])
 	}
 
-	return topOfEachStack
+	solution.Answer = topOfEachStack
+	return solution
 }
 
-// Part2 After the rearrangement procedure completes, what crate ends up on top of each stack?
-func Part2() (topOfEachStack string) {
+func Part2() (solution common.Solution) {
+	solution.Prompt = `
+After the rearrangement procedure completes, 
+what crate ends up on top of each stack?
+`
+	var topOfEachStack string
 	stacks := getInitialStacks()
 
 	for action := range readCraneActions() {
@@ -31,5 +41,6 @@ func Part2() (topOfEachStack string) {
 		topOfEachStack += string(stack[len(stack)-1])
 	}
 
-	return topOfEachStack
+	solution.Answer = topOfEachStack
+	return solution
 }

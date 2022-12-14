@@ -1,7 +1,14 @@
 package day4
 
-// Part1 In how many assignment pairs does one range fully contain the other?
-func Part1() (fullyOverlappingPairsCount int) {
+import "github.com/ryandem1/aoc_2022_go/common"
+
+func Part1() (solution common.Solution) {
+	solution.Prompt = `
+In how many assignment pairs does one range 
+fully contain the other?
+`
+	var fullyOverlappingPairsCount int
+
 	for pair := range readCleaningAssignmentPairs() {
 		for i := 0; i < 2; i++ {
 			if pair[i].start <= pair[i^1].start && pair[i].end >= pair[i^1].end {
@@ -10,11 +17,18 @@ func Part1() (fullyOverlappingPairsCount int) {
 			}
 		}
 	}
-	return fullyOverlappingPairsCount
+	solution.Answer = fullyOverlappingPairsCount
+	return solution
 }
 
 // Part2 In how many assignment pairs do the ranges overlap?
-func Part2() (overlappingPairsCount int) {
+func Part2() (solution common.Solution) {
+	solution.Prompt = `
+In how many assignment pairs do the ranges 
+overlap?
+`
+	var overlappingPairsCount int
+
 	for pair := range readCleaningAssignmentPairs() {
 		for i := 0; i < 2; i++ {
 			startInPairAssignment := pair[i^1].end >= pair[i].start && pair[i].start >= pair[i^1].start
@@ -26,5 +40,6 @@ func Part2() (overlappingPairsCount int) {
 			}
 		}
 	}
-	return overlappingPairsCount
+	solution.Answer = overlappingPairsCount
+	return solution
 }
