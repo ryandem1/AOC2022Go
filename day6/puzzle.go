@@ -4,10 +4,19 @@ import (
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
-// Day6
-// Part 1: How many characters need to be processed before the first start-of-packet marker is detected?
-// Part 2: How many characters need to be processed before the first start-of-message marker is detected?
-func Day6(part common.DayPart) (numCharacters int) {
+func Day6(part common.DayPart) (solution common.Solution) {
+	if part == common.Part1 {
+		solution.Prompt = `
+How many characters need to be processed before the 
+first start-of-packet marker is detected?
+`
+	} else {
+		solution.Prompt = `
+How many characters need to be processed before the 
+first start-of-packet marker is detected?
+`
+	}
+	numCharacters := 0
 	distinctCharsNeededForSignal := 4
 	if part == common.Part2 {
 		distinctCharsNeededForSignal = 14
@@ -41,7 +50,8 @@ func Day6(part common.DayPart) (numCharacters int) {
 		}
 
 		if found {
-			return numCharacters
+			solution.Answer = numCharacters
+			return solution
 		}
 		numCharacters++
 	}
