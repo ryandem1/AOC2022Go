@@ -27,12 +27,12 @@ func (dir *comDirectory) totalSize() (totalSize int) {
 
 // path will return the absolute path of the current directory
 func (dir *comDirectory) path() string {
-	if dir.name == "/" {
-		return ""
-	}
 	path := "/" + dir.name
+	if dir.name == "/" {
+		path = dir.name
+	}
 
-	if dir.name != "/" {
+	if dir.parent != nil && dir.parent.name != "/" {
 		path = dir.parent.path() + path
 	}
 	return path

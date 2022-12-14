@@ -1,6 +1,9 @@
 package day7
 
-import "github.com/ryandem1/aoc_2022_go/common"
+import (
+	"github.com/ryandem1/aoc_2022_go/common"
+	"log"
+)
 
 func Part1() (solution common.Solution) {
 	solution.Prompt = `
@@ -10,12 +13,9 @@ What is the sum of the total sizes of those directories?
 	totalSize := 0
 
 	terminal := newTerminal()
-	dirSizes := make(map[string]int) // comDir name, comDir total size
-
 	terminal.buildDirectoryFromInput()
-	dirSizes = getChildDirSizes(terminal.curDir)
 
-	for _, dirSize := range dirSizes {
+	for _, dirSize := range getChildDirSizes(terminal.curDir) {
 		if dirSize <= 100000 {
 			totalSize += dirSize
 		}
@@ -31,6 +31,26 @@ Find the smallest directory that, if deleted,
 would free up enough space on the filesystem to run the update. 
 What is the total size of that directory?
 `
-	solution.Answer = 0
+	requiredSpace := 30000000
+	totalSpace := 70000000
+
+	terminal := newTerminal()
+	terminal.buildDirectoryFromInput()
+	dirSizes := getChildDirSizes(terminal.curDir)
+
+	unusedSpace := totalSpace - dirSizes["/"]
+	spaceNeededToFreeUp := requiredSpace - unusedSpace
+
+	smallestDirSize := dirSizes["/"]
+	for _, dirSize := range dirSizes {
+		if dirSize >= spaceNeededToFreeUp && dirSize < smallestDirSize {
+			smallestDirSize = dirSize
+		}
+	}
+
+	if smallestDirSize == spaceNeededToFreeUp {
+		log.Panicf("Did not find a directory with size > %d", spaceNeededToFreeUp)
+	}
+	solution.Answer = smallestDirSize
 	return solution
 }
