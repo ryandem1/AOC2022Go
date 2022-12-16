@@ -47,7 +47,7 @@ func isVisible(x int, y int, height treeHeight, plane [][]treeHeight, angle view
 			}
 		}
 	case bottom:
-		for iy := y + 1; iy > len(plane); iy++ {
+		for iy := y + 1; iy < len(plane); iy++ {
 			if plane[x][iy] >= height {
 				visible = false
 				break
@@ -61,7 +61,7 @@ func isVisible(x int, y int, height treeHeight, plane [][]treeHeight, angle view
 			}
 		}
 	case right:
-		for ix := x + 1; ix > len(plane[0]); ix++ {
+		for ix := x + 1; ix < len(plane[0]); ix++ {
 			if plane[ix][y] >= height {
 				visible = false
 				break
