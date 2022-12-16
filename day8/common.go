@@ -5,26 +5,20 @@ import (
 	"strconv"
 )
 
-// buildTreeMap will read the input and build the 2D map of trees
-func buildTreeMap() map[string]*tree {
-	treeMap := make(map[string]*tree)
-
-	y := 0
+// buildTreePlane will read the input and build the 2D array of treeHeight values
+func buildTreePlane() (plane [][]treeHeight) {
 	for line := range common.ReadLinesFromFile("day8") {
-		for x, rawHeight := range line {
+		var row []treeHeight
+
+		for _, rawHeight := range line {
 			height, err := strconv.Atoi(string(rawHeight))
 			if err != nil {
 				panic(err)
 			}
 
-			t := &tree{
-				x:      x,
-				y:      y,
-				height: height,
-			}
-			treeMap[t.coords()] = t
+			row = append(row, treeHeight(height))
 		}
-		y++
+		plane = append(plane, row)
 	}
-	return treeMap
+	return plane
 }
