@@ -1,6 +1,7 @@
 package day8
 
 import (
+	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -23,7 +24,7 @@ outside the grid?
 			if visibleFromOutside {
 				amountOfTreesVisibleFromOutside++
 			}
-			// fmt.Println(isVisible(x, y, height, trees, top), isVisible(x, y, height, trees, bottom), isVisible(x, y, height, trees, left), isVisible(x, y, height, trees, right))
+			fmt.Println(isVisible(x, y, height, trees, top), isVisible(x, y, height, trees, bottom), isVisible(x, y, height, trees, left), isVisible(x, y, height, trees, right))
 		}
 	}
 
