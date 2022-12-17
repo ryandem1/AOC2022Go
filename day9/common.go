@@ -57,9 +57,9 @@ func moveHeadPosition(headPos common.Coords2D, motion *ropeMotion) (movedHeadPos
 	return movedHeadPos
 }
 
-// moveTailPosition will apply a motion on a tailPos according to the logic in the puzzle. Will output the new position
-// of the tail with the applied motion
-func moveTailPosition(tailPos common.Coords2D, motion *ropeMotion) (movedTailPos common.Coords2D) {
+// moveTailPosition will apply the corresponding tail move according to the headPos. While the headPos moves
+// according to the motion, the tail position will follow the head according to the puzzle logic.
+func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTailPos common.Coords2D) {
 	return movedTailPos
 }
 
@@ -67,5 +67,5 @@ func moveTailPosition(tailPos common.Coords2D, motion *ropeMotion) (movedTailPos
 // visited
 func (rope *bridgeRope) applyMotion(motion *ropeMotion) {
 	rope.headPos = moveHeadPosition(rope.headPos, motion)
-	rope.tailPos = moveTailPosition(rope.tailPos, motion)
+	rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
 }
