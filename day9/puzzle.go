@@ -7,6 +7,7 @@ import (
 func Part1() (solution common.Solution) {
 	solution.Prompt = `
 Simulate your complete hypothetical series of motions. 
+
 How many positions does the tail of the rope visit at 
 least once?
 `
@@ -30,6 +31,15 @@ least once?
 }
 
 func Part2() (solution common.Solution) {
-	solution.Prompt = ``
+	solution.Prompt = `
+Simulate your complete series of motions on a larger 
+rope with ten knots. 
+
+How many positions does the tail of the rope visit 
+at least once?
+`
+	positionsVisited := 0
+
+	solution.Answer = positionsVisited
 	return solution
 }
