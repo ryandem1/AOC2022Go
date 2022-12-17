@@ -11,7 +11,7 @@ func VisualizeRopeMovements() {
 	var uniqueTailPosVisited []common.Coords2D
 	var allPosVisited []common.Coords2D
 
-	rope := newBridgeRope()
+	rope := newBridgeRope(0)
 	fmt.Println("== Begin ==")
 	fmt.Println("H") // Begins with head overlapping tail at position S
 
