@@ -51,11 +51,8 @@ func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTa
 	return movedTailPos
 }
 
-// applyMotion will update both the head and tail of a rope according to a motion. Will keep track of the positions
-// visited
-func (rope *bridgeRope) applyMotion(motion *ropeMotion) {
-	for i := 0; i < motion.amount; i++ {
-		rope.headPos.Move(motion.direction, 1)
-		rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
-	}
+// move will move both the head and tail positions of rope 1 unit in a given direction
+func (rope *bridgeRope) move(direction common.QuadDirection) {
+	rope.headPos.Move(direction, 1)
+	rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
 }

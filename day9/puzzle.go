@@ -15,10 +15,12 @@ least once?
 
 	rope := newBridgeRope()
 	for motion := range readMotions() {
-		rope.applyMotion(motion)
+		for i := 0; i < motion.amount; i++ {
+			rope.move(motion.direction)
 
-		if !common.Contains(uniqueTailPosVisited, rope.tailPos) {
-			uniqueTailPosVisited = append(uniqueTailPosVisited, rope.tailPos)
+			if !common.Contains(uniqueTailPosVisited, rope.tailPos) {
+				uniqueTailPosVisited = append(uniqueTailPosVisited, rope.tailPos)
+			}
 		}
 	}
 
