@@ -126,6 +126,9 @@ func main() {
 		default:
 			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
 		}
+		if visual > 0 {
+			break // Don't print solutions if visualize was passed
+		}
 
 		printSolutions(day9.Part1(), day9.Part2())
 	default:

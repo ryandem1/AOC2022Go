@@ -40,14 +40,28 @@ func readMotions() chan *ropeMotion {
 // moveTailPosition will apply the corresponding tail move according to the headPos. While the headPos moves
 // according to the motion, the tail position will follow the head according to the puzzle logic.
 func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTailPos common.Coords2D) {
+	movedTailPos.X = tailPos.X
+	movedTailPos.Y = tailPos.Y
+
 	xDelta := headPos.X - tailPos.X
 	yDelta := headPos.Y - tailPos.Y
+
 	if xDelta > 1 {
-		movedTailPos.X = headPos.X - tailPos.X - 1
+		movedTailPos.X += xDelta - 1
+		movedTailPos.Y += yDelta
+	} else if xDelta < -1 {
+		movedTailPos.X += xDelta + 1
+		movedTailPos.Y += yDelta
 	}
+
 	if yDelta > 1 {
-		movedTailPos.Y = headPos.Y - tailPos.Y - 1
+		movedTailPos.Y += yDelta - 1
+		movedTailPos.X += xDelta
+	} else if yDelta < -1 {
+		movedTailPos.Y += yDelta + 1
+		movedTailPos.X += xDelta
 	}
+
 	return movedTailPos
 }
 
