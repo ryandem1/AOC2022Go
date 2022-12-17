@@ -40,29 +40,29 @@ func isVisible(x int, y int, height treeHeight, plane [][]treeHeight, angle view
 
 	switch angle {
 	case top:
-		for iy := y - 1; iy > 0; iy-- {
-			if plane[x][iy] >= height {
+		for iy := y - 1; iy >= 0; iy-- {
+			if plane[iy][x] >= height {
 				visible = false
 				break
 			}
 		}
 	case bottom:
 		for iy := y + 1; iy < len(plane); iy++ {
-			if plane[x][iy] >= height {
+			if plane[iy][x] >= height {
 				visible = false
 				break
 			}
 		}
 	case left:
-		for ix := x - 1; ix > 0; ix-- {
-			if plane[ix][y] >= height {
+		for ix := x - 1; ix >= 0; ix-- {
+			if plane[y][ix] >= height {
 				visible = false
 				break
 			}
 		}
 	case right:
 		for ix := x + 1; ix < len(plane[0]); ix++ {
-			if plane[ix][y] >= height {
+			if plane[y][ix] >= height {
 				visible = false
 				break
 			}
