@@ -38,6 +38,16 @@ for any tree?
 `
 	highestScenicScore := 0
 
+	trees := buildTreePlane()
+	for y, treeRow := range trees {
+		for x, height := range treeRow {
+			scenicScore := getScenicScore(x, y, height, trees)
+			if scenicScore > highestScenicScore {
+				highestScenicScore = scenicScore
+			}
+		}
+	}
+
 	solution.Answer = highestScenicScore
 	return solution
 }
