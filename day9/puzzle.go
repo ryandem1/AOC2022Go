@@ -11,6 +11,7 @@ How many positions does the tail of the rope visit at
 least once?
 `
 	positionsVisited := 0
+
 	solution.Answer = positionsVisited
 	return solution
 }
