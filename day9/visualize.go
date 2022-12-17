@@ -40,7 +40,6 @@ func VisualizeRopeMovements() {
 				return allPosVisited[i].Y < allPosVisited[j].Y || allPosVisited[i].X < allPosVisited[j].X
 			})
 
-			//fmt.Printf("Low y: %d, High y: %d, Low x: %d, High x: %d\n", allPosVisited[0].Y, allPosVisited[len(allPosVisited)-1].Y, allPosVisited[0].X, allPosVisited[len(allPosVisited)-1].X)
 			for y := allPosVisited[len(allPosVisited)-1].Y + 10; y >= allPosVisited[0].Y-10; y-- {
 				for x := allPosVisited[0].X - 20; x <= allPosVisited[len(allPosVisited)-1].X+20; x++ {
 					pos := common.Coords2D{
