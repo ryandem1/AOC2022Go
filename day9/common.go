@@ -40,6 +40,20 @@ func readMotions() chan *ropeMotion {
 // moveHeadPosition will apply a motion on a headPos according to the logic in the puzzle. Will output the new position
 // of the head with the applied motion
 func moveHeadPosition(headPos common.Coords2D, motion *ropeMotion) (movedHeadPos common.Coords2D) {
+	switch motion.direction {
+	case up:
+		movedHeadPos.X = headPos.X
+		movedHeadPos.Y = headPos.Y + motion.amount
+	case down:
+		movedHeadPos.X = headPos.X
+		movedHeadPos.Y = headPos.Y - motion.amount
+	case left:
+		movedHeadPos.X = headPos.X - motion.amount
+		movedHeadPos.Y = headPos.Y
+	case right:
+		movedHeadPos.X = headPos.X + motion.amount
+		movedHeadPos.Y = headPos.Y
+	}
 	return movedHeadPos
 }
 
@@ -54,8 +68,4 @@ func moveTailPosition(tailPos common.Coords2D, motion *ropeMotion) (movedTailPos
 func (rope *bridgeRope) applyMotion(motion *ropeMotion) {
 	rope.headPos = moveHeadPosition(rope.headPos, motion)
 	rope.tailPos = moveTailPosition(rope.tailPos, motion)
-
-	if !common.Contains(rope.tailPosVisited, rope.tailPos) {
-		rope.tailPosVisited = append(rope.tailPosVisited, rope.tailPos)
-	}
 }
