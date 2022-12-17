@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+// readMotions will convert the raw string line input into ropeMotion objects and send them through a channel for use
+// in the puzzle
 func readMotions() chan *ropeMotion {
 	motions := make(chan *ropeMotion)
 
