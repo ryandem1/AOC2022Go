@@ -57,3 +57,14 @@ func Contains[T comparable](sl []T, item T) bool {
 	}
 	return false
 }
+
+// FindIndex will attempt to return the index of the first occurrence of element T in slice []T. If it is not found,
+// this will return a -1
+func FindIndex[T comparable](sl []T, item T) int {
+	for i := 0; i < len(sl)-1; i++ {
+		if sl[i] == item {
+			return i
+		}
+	}
+	return -1
+}

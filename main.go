@@ -114,15 +114,19 @@ func main() {
 		}
 		printSolutions(day8.Part1(), day8.Part2())
 	case "day9":
-		availableVisualizations := 1
+		availableVisualizations := 2
 
 		switch visual {
 		case 0: // No visualization option passed
 			break
 		case 1:
-			fmt.Println("VISUAL 1: Rope Movements per Motion")
+			fmt.Println("VISUAL 1: Rope Movements per Motion (Rope Size: 2)")
 			fmt.Println(fullLine)
-			day9.VisualizeRopeMovements()
+			day9.VisualizeRopeMovements(2)
+		case 2:
+			fmt.Println("VISUAL 2: Rope Movements per Motion (Rope Size: 10)")
+			fmt.Println(fullLine)
+			day9.VisualizeRopeMovements(10)
 		default:
 			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
 		}

@@ -68,5 +68,12 @@ func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTa
 // move will move both the head and tail positions of rope 1 unit in a given direction
 func (rope *bridgeRope) move(direction common.QuadDirection) {
 	rope.headPos.Move(direction, 1)
+	for i := 0; i < len(rope.ropeSegments)-1; i++ {
+		segmentHead := rope.headPos
+		if i > 0 {
+			segmentHead = rope.ropeSegments[i-1]
+		}
+		rope.ropeSegments[i] = moveTailPosition(rope.ropeSegments[i], segmentHead)
+	}
 	rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
 }

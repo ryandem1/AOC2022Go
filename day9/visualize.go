@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 	"sort"
+	"strconv"
 )
 
 // VisualizeRopeMovements will visualize how a rope's head and tail positions move across a 2D plane
-func VisualizeRopeMovements() {
+func VisualizeRopeMovements(ropeSize int) {
 	var uniqueTailPosVisited []common.Coords2D
 	var allPosVisited []common.Coords2D
 
-	rope := newBridgeRope(0)
+	rope := newBridgeRope(ropeSize - 2)
 	fmt.Println("== Begin ==")
 	fmt.Println("H") // Begins with head overlapping tail at position S
 
@@ -56,10 +57,13 @@ func VisualizeRopeMovements() {
 						Y: y,
 					}
 
+					segmentIndex := common.FindIndex(rope.ropeSegments, pos)
 					if x == rope.headPos.X && y == rope.headPos.Y {
 						plane += "H"
 					} else if x == rope.tailPos.X && y == rope.tailPos.Y {
 						plane += "T"
+					} else if segmentIndex > -1 { // If there are segments, we prefer to write those first
+						plane += strconv.Itoa(segmentIndex)
 					} else if common.Contains(uniqueTailPosVisited, pos) {
 						plane += "#"
 					} else {
