@@ -14,9 +14,8 @@ const (
 
 // bridgeRope represents a single rope on a 2d plane with a head knot and a tail knot
 type bridgeRope struct {
-	headPos        common.Coords2D
-	tailPos        common.Coords2D
-	tailPosVisited []common.Coords2D
+	headPos common.Coords2D
+	tailPos common.Coords2D
 }
 
 // newBridgeRope will initialize a new bridgeRope at starting position S, which will be set as 0, 0. With this config
@@ -31,7 +30,6 @@ func newBridgeRope() *bridgeRope {
 			X: 0,
 			Y: 0,
 		},
-		tailPosVisited: []common.Coords2D{},
 	}
 	return rope
 }

@@ -11,11 +11,18 @@ How many positions does the tail of the rope visit at
 least once?
 `
 	positionsVisited := 0
+	var uniqueTailPosVisited []common.Coords2D
+
 	rope := newBridgeRope()
 	for motion := range readMotions() {
 		rope.applyMotion(motion)
+
+		if !common.Contains(uniqueTailPosVisited, rope.tailPos) {
+			uniqueTailPosVisited = append(uniqueTailPosVisited, rope.tailPos)
+		}
 	}
 
+	positionsVisited = len(uniqueTailPosVisited)
 	solution.Answer = positionsVisited
 	return solution
 }
