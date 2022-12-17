@@ -1,7 +1,6 @@
 package day9
 
 import (
-	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -12,8 +11,9 @@ How many positions does the tail of the rope visit at
 least once?
 `
 	positionsVisited := 0
+	rope := newBridgeRope()
 	for motion := range readMotions() {
-		fmt.Println(motion)
+		rope.applyMotion(motion)
 	}
 
 	solution.Answer = positionsVisited

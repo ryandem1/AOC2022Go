@@ -47,3 +47,13 @@ func FindOneObj[T any](sl []T, query func(T) bool) (obj T) {
 	}
 	return obj
 }
+
+// Contains will return a bool if a comparable item T is in the slice []T
+func Contains[T comparable](sl []T, item T) bool {
+	for _, elem := range sl {
+		if item == elem {
+			return true
+		}
+	}
+	return false
+}
