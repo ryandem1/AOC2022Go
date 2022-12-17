@@ -114,9 +114,19 @@ func main() {
 		}
 		printSolutions(day8.Part1(), day8.Part2())
 	case "day9":
-		if visual != 0 {
-			panic(fmt.Sprintf("No visualization for %s", day))
+		availableVisualizations := 1
+
+		switch visual {
+		case 0: // No visualization option passed
+			break
+		case 1:
+			fmt.Println("VISUAL 1: Rope Movements per Motion")
+			fmt.Println(fullLine)
+			day9.VisualizeRopeMovements()
+		default:
+			panic(fmt.Sprintf("Only have %d available visualization(s)", availableVisualizations))
 		}
+
 		printSolutions(day9.Part1(), day9.Part2())
 	default:
 		log.Fatal("Unimplemented or invalid day!")

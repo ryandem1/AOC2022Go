@@ -24,6 +24,18 @@ const (
 	Right
 )
 
+// Name will return the string name of a QuadDirection
+func (dir *QuadDirection) Name() string {
+	name := map[QuadDirection]string{
+		Up:    "Up",
+		Down:  "Down",
+		Left:  "Left",
+		Right: "Right",
+	}[*dir]
+
+	return name
+}
+
 // Coords2D represents a single position on an arbitrary 2D plane
 type Coords2D struct {
 	X int
