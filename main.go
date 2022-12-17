@@ -111,7 +111,7 @@ func main() {
 		if visual != 0 {
 			panic(fmt.Sprintf("No visualization for %s", day))
 		}
-		printSolutions(day8.Part1())
+		printSolutions(day8.Part1(), day8.Part2())
 	default:
 		log.Fatal("Unimplemented or invalid day!")
 	}

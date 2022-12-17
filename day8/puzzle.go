@@ -29,3 +29,15 @@ outside the grid?
 	solution.Answer = amountOfTreesVisibleFromOutside
 	return solution
 }
+
+func Part2() (solution common.Solution) {
+	solution.Prompt = `
+Consider each tree on your map. 
+What is the highest scenic score possible 
+for any tree?
+`
+	highestScenicScore := 0
+
+	solution.Answer = highestScenicScore
+	return solution
+}
