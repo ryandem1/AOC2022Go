@@ -73,7 +73,45 @@ func isVisible(x int, y int, height treeHeight, plane [][]treeHeight, angle view
 	return visible
 }
 
-func getScenicScore(x int, y int, height treeHeight, plane [][]treeHeight) (scenicScore int) {
+func getScenicScore(x int, y int, height treeHeight, plane [][]treeHeight) int {
+	scenicScore := 1
+	var topScore int
+	var bottomScore int
+	var leftScore int
+	var rightScore int
 
+	// Top iterator
+	for iy := y - 1; iy >= 0; iy-- {
+		topScore = y - iy
+		if plane[iy][x] >= height {
+			break
+		}
+	}
+
+	// Bottom iterator
+	for iy := y + 1; iy < len(plane); iy++ {
+		bottomScore = iy - y
+		if plane[iy][x] >= height {
+			break
+		}
+	}
+
+	// Left iterator
+	for ix := x - 1; ix >= 0; ix-- {
+		leftScore = x - ix
+		if plane[y][ix] >= height {
+			break
+		}
+	}
+
+	// Right iterator
+	for ix := x + 1; ix < len(plane[0]); ix++ {
+		rightScore = ix - x
+		if plane[y][ix] >= height {
+			break
+		}
+	}
+
+	scenicScore = topScore * bottomScore * leftScore * rightScore
 	return scenicScore
 }
