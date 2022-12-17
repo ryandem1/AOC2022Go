@@ -73,8 +73,7 @@ func isVisible(x int, y int, height treeHeight, plane [][]treeHeight, angle view
 	return visible
 }
 
-func getScenicScore(x int, y int, height treeHeight, plane [][]treeHeight) int {
-	scenicScore := 1
+func getScenicScore(x int, y int, height treeHeight, plane [][]treeHeight) (scenicScore int) {
 	var topScore int
 	var bottomScore int
 	var leftScore int
