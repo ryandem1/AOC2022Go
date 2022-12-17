@@ -14,8 +14,32 @@ type Solution struct {
 	Answer any
 }
 
+// QuadDirection represents linear directions that can be moved on a 2D plane. They are up, down, left, and right.
+type QuadDirection int32
+
+const (
+	Up QuadDirection = iota
+	Down
+	Left
+	Right
+)
+
 // Coords2D represents a single position on an arbitrary 2D plane
 type Coords2D struct {
 	X int
 	Y int
+}
+
+// Move will update a Coords2D X and Y values according to the direction and amount specified.
+func (coords *Coords2D) Move(direction QuadDirection, amount int) {
+	switch direction {
+	case Up:
+		coords.Y += amount
+	case Down:
+		coords.Y -= amount
+	case Left:
+		coords.X -= 1
+	case Right:
+		coords.X += 1
+	}
 }
