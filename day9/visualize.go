@@ -35,13 +35,22 @@ func VisualizeRopeMovements() {
 				allPosVisited = append(allPosVisited, rope.tailPos)
 			}
 
-			// Sorts all positions by y/x asc
+			// Sorts all positions by y to get Y bounds
 			sort.Slice(allPosVisited, func(i int, j int) bool {
-				return allPosVisited[i].Y < allPosVisited[j].Y || allPosVisited[i].X < allPosVisited[j].X
+				return allPosVisited[i].Y < allPosVisited[j].Y
 			})
+			lowestY := allPosVisited[0].Y
+			highestY := allPosVisited[len(allPosVisited)-1].Y
 
-			for y := allPosVisited[len(allPosVisited)-1].Y + 10; y >= allPosVisited[0].Y-10; y-- {
-				for x := allPosVisited[0].X - 20; x <= allPosVisited[len(allPosVisited)-1].X+20; x++ {
+			// Sorts by X for x bounds
+			sort.Slice(allPosVisited, func(i int, j int) bool {
+				return allPosVisited[i].X < allPosVisited[j].X
+			})
+			lowestX := allPosVisited[0].X
+			highestX := allPosVisited[len(allPosVisited)-1].X
+
+			for y := highestY; y >= lowestY; y-- {
+				for x := lowestX; x <= highestX; x++ {
 					pos := common.Coords2D{
 						X: x,
 						Y: y,
