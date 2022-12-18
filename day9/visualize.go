@@ -12,7 +12,7 @@ func VisualizeRopeMovements(ropeSize int) {
 	var uniqueTailPosVisited []common.Coords2D
 	var allPosVisited []common.Coords2D
 
-	rope := newBridgeRope(ropeSize - 2)
+	rope := newBridgeRope(ropeSize - 1)
 	fmt.Println("== Begin ==")
 	fmt.Println("H") // Begins with head overlapping tail at position S
 
@@ -22,8 +22,7 @@ func VisualizeRopeMovements(ropeSize int) {
 		for i := 0; i < motion.amount; i++ {
 			plane := "" // output to be printed
 
-			rope.headPos.Move(motion.direction, 1)
-			rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
+			rope.move(motion.direction)
 
 			if !common.Contains(uniqueTailPosVisited, rope.tailPos) {
 				uniqueTailPosVisited = append(uniqueTailPosVisited, rope.tailPos)
@@ -60,10 +59,10 @@ func VisualizeRopeMovements(ropeSize int) {
 					segmentIndex := common.FindIndex(rope.ropeSegments, pos)
 					if x == rope.headPos.X && y == rope.headPos.Y {
 						plane += "H"
+					} else if segmentIndex > -1 { // If there are segments, we prefer to write those first
+						plane += strconv.Itoa(segmentIndex + 1)
 					} else if x == rope.tailPos.X && y == rope.tailPos.Y {
 						plane += "T"
-					} else if segmentIndex > -1 { // If there are segments, we prefer to write those first
-						plane += strconv.Itoa(segmentIndex)
 					} else if common.Contains(uniqueTailPosVisited, pos) {
 						plane += "#"
 					} else {

@@ -2,6 +2,7 @@ package day9
 
 import (
 	"github.com/ryandem1/aoc_2022_go/common"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -37,29 +38,14 @@ func readMotions() chan *ropeMotion {
 	return motions
 }
 
-// moveTailPosition will apply the corresponding tail move according to the headPos. While the headPos moves
+// follow will apply the corresponding tail move according to the headPos. While the headPos moves
 // according to the motion, the tail position will follow the head according to the puzzle logic.
-func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTailPos common.Coords2D) {
-	movedTailPos.X = tailPos.X
-	movedTailPos.Y = tailPos.Y
+func follow(tailPos common.Coords2D, headPos common.Coords2D) (movedTailPos common.Coords2D) {
+	movedTailPos.X = tailPos.X + int(math.Round(math.Sin(float64(headPos.X-tailPos.X))))
+	movedTailPos.Y = tailPos.Y + int(math.Round(math.Sin(float64(headPos.Y-tailPos.Y))))
 
-	xDelta := headPos.X - tailPos.X
-	yDelta := headPos.Y - tailPos.Y
-
-	if xDelta > 1 {
-		movedTailPos.X += xDelta - 1
-		movedTailPos.Y += yDelta
-	} else if xDelta < -1 {
-		movedTailPos.X += xDelta + 1
-		movedTailPos.Y += yDelta
-	}
-
-	if yDelta > 1 {
-		movedTailPos.Y += yDelta - 1
-		movedTailPos.X += xDelta
-	} else if yDelta < -1 {
-		movedTailPos.Y += yDelta + 1
-		movedTailPos.X += xDelta
+	if movedTailPos.X == headPos.X && movedTailPos.Y == headPos.Y {
+		movedTailPos = tailPos
 	}
 
 	return movedTailPos
@@ -68,12 +54,22 @@ func moveTailPosition(tailPos common.Coords2D, headPos common.Coords2D) (movedTa
 // move will move both the head and tail positions of rope 1 unit in a given direction
 func (rope *bridgeRope) move(direction common.QuadDirection) {
 	rope.headPos.Move(direction, 1)
-	for i := 0; i < len(rope.ropeSegments)-1; i++ {
-		segmentHead := rope.headPos
-		if i > 0 {
+	segmentCount := len(rope.ropeSegments)
+
+	for i := 0; i < segmentCount-1; i++ {
+		var segmentHead common.Coords2D
+
+		if i == 0 {
+			segmentHead = rope.headPos
+		} else {
 			segmentHead = rope.ropeSegments[i-1]
 		}
-		rope.ropeSegments[i] = moveTailPosition(rope.ropeSegments[i], segmentHead)
+		rope.ropeSegments[i] = follow(rope.ropeSegments[i], segmentHead)
 	}
-	rope.tailPos = moveTailPosition(rope.tailPos, rope.headPos)
+	segmentHead := rope.headPos
+	if segmentCount > 1 {
+		segmentHead = rope.ropeSegments[segmentCount-2]
+	}
+
+	rope.tailPos = follow(rope.tailPos, segmentHead)
 }

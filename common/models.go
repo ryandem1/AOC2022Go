@@ -50,8 +50,8 @@ func (coords *Coords2D) Move(direction QuadDirection, amount int) {
 	case Down:
 		coords.Y -= amount
 	case Left:
-		coords.X -= 1
+		coords.X -= amount
 	case Right:
-		coords.X += 1
+		coords.X += amount
 	}
 }

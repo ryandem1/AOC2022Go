@@ -41,7 +41,7 @@ at least once?
 	positionsVisited := 0
 	var uniqueTailPosVisited []common.Coords2D
 
-	rope := newBridgeRope(8)
+	rope := newBridgeRope(9)
 	for motion := range readMotions() {
 		for i := 0; i < motion.amount; i++ {
 			rope.move(motion.direction)
