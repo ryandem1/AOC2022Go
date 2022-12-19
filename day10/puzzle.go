@@ -1,6 +1,7 @@
 package day10
 
 import (
+	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -12,6 +13,11 @@ Find the signal strength during the 20th, 60th,
 What is the sum of these six signal strengths?
 `
 	signalStrengthSum := 0
+	c := newCPU()
+
+	for cycle := range c.run(readOperations()) {
+		fmt.Println(cycle, c.x)
+	}
 
 	solution.Answer = signalStrengthSum
 	return solution
