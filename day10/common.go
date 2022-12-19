@@ -51,6 +51,8 @@ func (c *cpu) run(operations <-chan *cpuOperation) <-chan *cpuReading {
 					readings <- c.newCPUReading()
 				}
 				c.x += operation.V
+			default:
+				log.Panicf("Unhandled or invalid operation type: %d", operation.opType)
 			}
 		}
 		close(readings)

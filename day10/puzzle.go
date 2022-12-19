@@ -26,10 +26,12 @@ What is the sum of these six signal strengths?
 
 func Part2() (solution common.Solution) {
 	solution.Prompt = `
+Render the image given by your program. 
 
+What eight capital letters appear on your CRT?
 `
-	signalStrengthSum := 0
+	letters := ""
 
-	solution.Answer = signalStrengthSum
+	solution.Answer = letters
 	return solution
 }
