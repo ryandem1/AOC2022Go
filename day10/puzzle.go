@@ -31,6 +31,8 @@ Render the image given by your program.
 What eight capital letters appear on your CRT?
 `
 	letters := ""
+	c := newCPU()
+	_ = newCRTDisplay(6, 40, c.clockCircuit)
 
 	solution.Answer = letters
 	return solution

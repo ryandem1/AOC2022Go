@@ -1,5 +1,7 @@
 package day10
 
+import "github.com/ryandem1/aoc_2022_go/common"
+
 type cpuOperationType int32
 
 const (
@@ -71,4 +73,30 @@ func (c *cpu) newCPUReading() *cpuReading {
 		cycle:          c.clockCircuit.cycle,
 	}
 	return reading
+}
+
+// crtDisplay represents a single display of a communication device
+type crtDisplay struct {
+	pixels       []common.Coords2D
+	clockCircuit *cpuClockCircuit
+}
+
+// newCRTDisplay will create a new crtDisplay. There must be an equal number of pixels per row. Takes in a clock so
+// that it can be synchronized with a cpu
+func newCRTDisplay(height int, width int, clock *cpuClockCircuit) *crtDisplay {
+	if width%height != 0 {
+		panic("CRT Displays must have a equal number of columns per row!")
+	}
+	var pixels []common.Coords2D
+
+	for y := 0; y < height; y++ {
+		for x := 0; x < width; x++ {
+			pixels = append(pixels, common.Coords2D{X: x, Y: y})
+		}
+	}
+	display := &crtDisplay{
+		pixels:       pixels,
+		clockCircuit: &cpuClockCircuit{cycle: 0},
+	}
+	return display
 }
