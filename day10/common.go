@@ -34,26 +34,26 @@ func readOperations() chan *cpuOperation {
 	return operations
 }
 
-// run will execute any cpu operation. Will yield back the current clock cycle of the cpu in an unbuffered channel,
+// run will execute any cpu operation. Will yield back point-in-time cpuReading objects in an unbuffered channel,
 // essentially meaning that each clock cycle is blocking, allowing for analysis one clock cycle at a time
-func (c *cpu) run(operations <-chan *cpuOperation) <-chan int {
-	cycles := make(chan int)
+func (c *cpu) run(operations <-chan *cpuOperation) <-chan *cpuReading {
+	readings := make(chan *cpuReading)
 
 	go func() {
 		for operation := range operations {
 			switch operation.opType {
 			case noop: // 1 cycle cost
 				c.clockCircuit.cycle += 1
-				cycles <- c.clockCircuit.cycle
+				readings <- c.newCPUReading()
 			case addx: // 2 cycle cost
 				for i := 0; i < 2; i++ {
 					c.clockCircuit.cycle += 1
-					cycles <- c.clockCircuit.cycle
+					readings <- c.newCPUReading()
 				}
 				c.x += operation.V
 			}
 		}
-		close(cycles)
+		close(readings)
 	}()
-	return cycles
+	return readings
 }

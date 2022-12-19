@@ -1,7 +1,6 @@
 package day10
 
 import (
-	"fmt"
 	"github.com/ryandem1/aoc_2022_go/common"
 )
 
@@ -15,8 +14,10 @@ What is the sum of these six signal strengths?
 	signalStrengthSum := 0
 	c := newCPU()
 
-	for cycle := range c.run(readOperations()) {
-		fmt.Println(cycle, c.x)
+	for reading := range c.run(readOperations()) {
+		if common.Contains([]int{20, 60, 100, 140, 180, 220}, reading.cycle) {
+			signalStrengthSum += reading.signalStrength
+		}
 	}
 
 	solution.Answer = signalStrengthSum

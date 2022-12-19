@@ -43,12 +43,32 @@ type cpu struct {
 	clockCircuit *cpuClockCircuit
 }
 
+// signalStrength is the cycle number of the cpuClockCircuit multiplied by the value of the x register
+func (c *cpu) signalStrength() int {
+	return c.x * c.clockCircuit.cycle
+}
+
 // newCPU initializes a new cpu with a cpuCLockCircuit
 func newCPU() *cpu {
 	cc := &cpuClockCircuit{cycle: 0}
 	c := &cpu{
-		x:            0,
+		x:            1,
 		clockCircuit: cc,
 	}
 	return c
+}
+
+// cpuReading is a point-in-time reading of a cpu's signalStrength and the current cycle of its cpuClockCircuit
+type cpuReading struct {
+	signalStrength int
+	cycle          int
+}
+
+// newCPUReading will take a point-in-time reading of a CPU
+func (c *cpu) newCPUReading() *cpuReading {
+	reading := &cpuReading{
+		signalStrength: c.signalStrength(),
+		cycle:          c.clockCircuit.cycle,
+	}
+	return reading
 }
