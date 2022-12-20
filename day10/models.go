@@ -1,6 +1,8 @@
 package day10
 
-import "github.com/ryandem1/aoc_2022_go/common"
+import (
+	"github.com/ryandem1/aoc_2022_go/common"
+)
 
 type cpuOperationType int32
 
@@ -63,6 +65,7 @@ func newCPU() *cpu {
 // cpuReading is a point-in-time reading of a cpu's signalStrength and the current cycle of its cpuClockCircuit
 type cpuReading struct {
 	signalStrength int
+	xRegisterValue int
 	cycle          int
 }
 
@@ -70,6 +73,7 @@ type cpuReading struct {
 func (c *cpu) newCPUReading() *cpuReading {
 	reading := &cpuReading{
 		signalStrength: c.signalStrength(),
+		xRegisterValue: c.x,
 		cycle:          c.clockCircuit.cycle,
 	}
 	return reading
@@ -79,14 +83,12 @@ func (c *cpu) newCPUReading() *cpuReading {
 type crtDisplay struct {
 	pixels       []common.Coords2D
 	clockCircuit *cpuClockCircuit
+	sprite       [3]int // X positions of sprite
 }
 
 // newCRTDisplay will create a new crtDisplay. There must be an equal number of pixels per row. Takes in a clock so
 // that it can be synchronized with a cpu
 func newCRTDisplay(height int, width int, clock *cpuClockCircuit) *crtDisplay {
-	if width%height != 0 {
-		panic("CRT Displays must have a equal number of columns per row!")
-	}
 	var pixels []common.Coords2D
 
 	for y := 0; y < height; y++ {
@@ -96,7 +98,14 @@ func newCRTDisplay(height int, width int, clock *cpuClockCircuit) *crtDisplay {
 	}
 	display := &crtDisplay{
 		pixels:       pixels,
-		clockCircuit: &cpuClockCircuit{cycle: 0},
+		clockCircuit: clock,
+		sprite:       [3]int{0, 1, 2},
 	}
 	return display
+}
+
+// moveSprite will move a crtDisplay's sprite to a certain x position. The x position will correlate to the middle
+// of the sprite
+func (display *crtDisplay) moveSprite(x int) {
+	display.sprite = [3]int{x - 1, x, x + 1}
 }
