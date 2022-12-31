@@ -1,6 +1,7 @@
 package common
 
 import (
+	"log"
 	"sort"
 )
 
@@ -67,4 +68,12 @@ func FindIndex[T comparable](sl []T, item T) int {
 		}
 	}
 	return -1
+}
+
+// RemoveIndex will remove an item from an array by index
+func RemoveIndex[T any](s []T, index int) []T {
+	if index > len(s)-1 {
+		log.Panicf("Cannot remove item with index %d from slice with length %d", index, len(s))
+	}
+	return append(s[:index], s[index+1:]...)
 }

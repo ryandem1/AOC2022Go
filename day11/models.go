@@ -7,17 +7,13 @@ type missingPackItem struct {
 }
 
 // keepAwayMonkey represents a single monkey participating in the game of keep-away for our items.
-type keepAwayMonkey struct {
-	startingItems []missingPackItem
-}
-
-// A keepAwayPlayer must have:
+// an id is a numerical id that identifies a unique monkey
 // an operation, which is a function of how our worryLevel for a missingPackItem will change upon inspection.
 // a test is a function that a player will use to test our worryLevel for a missingPackItem and determine the next
 // player to throw to
-// a throw function that will throw a missingPackItem to a different keepAwayPlayer
-type keepAwayPlayer interface {
-	operation(int) int
-	test(bool) *keepAwayPlayer
-	throw(item *missingPackItem) *keepAwayPlayer
+type keepAwayMonkey struct {
+	id        int
+	items     []*missingPackItem
+	operation func(item *missingPackItem)
+	test      func(bool) *keepAwayMonkey
 }
