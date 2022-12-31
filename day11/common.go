@@ -71,14 +71,36 @@ func readMonkeys() []*keepAwayMonkey {
 		// endregion
 
 		// region PARSE TEST
-		_ = strings.Fields(lines[3])[len(strings.Fields(lines[3]))-1]
+		rawDivisibleBy := strings.Fields(lines[3])[len(strings.Fields(lines[3]))-1]
+		divisibleBy, err := strconv.Atoi(rawDivisibleBy)
+		if err != nil {
+			panic(err)
+		}
+
+		trueTestThrowTarget, err := strconv.Atoi(strings.Fields(lines[4])[len(strings.Fields(lines[4]))-1])
+		if err != nil {
+			panic(err)
+		}
+
+		falseTestThrowTarget, err := strconv.Atoi(strings.Fields(lines[5])[len(strings.Fields(lines[5]))-1])
+		if err != nil {
+			panic(err)
+		}
+
+		test := func(item *missingPackItem) int {
+			if item.worryLevel%divisibleBy == 0 {
+				return trueTestThrowTarget
+			} else {
+				return falseTestThrowTarget
+			}
+		}
 		// endregion
 
 		monkeys = append(monkeys, &keepAwayMonkey{
 			id:        monkeyId,
 			items:     startingItems,
 			operation: operation,
-			test:      nil,
+			test:      test,
 		})
 
 	}

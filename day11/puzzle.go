@@ -16,14 +16,9 @@ of stuff-slinging simian shenanigans?
 
 	monkeys := readMonkeys()
 	monkey1 := monkeys[0]
-	monkey2 := monkeys[1]
+	// monkey2 := monkeys[1]
 
-	fmt.Println(len(monkey1.items))
-	fmt.Println(len(monkey2.items))
-
-	monkey2.throw(monkey2.items[0], monkey1)
-	fmt.Println(len(monkey1.items))
-	fmt.Println(len(monkey2.items))
+	fmt.Println(monkey1.test(monkey1.items[0]))
 	return solution
 }
 
