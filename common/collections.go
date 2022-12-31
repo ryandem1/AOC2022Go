@@ -49,6 +49,17 @@ func FindOneObj[T any](sl []T, query func(T) bool) (obj T) {
 	return obj
 }
 
+// FindOneObjIndex is the same as FindOneObj, but will return the index of the object instead. If the object is not
+// found, then it will return -1
+func FindOneObjIndex[T any](sl []T, query func(T) bool) int {
+	for i, elem := range sl {
+		if query(elem) {
+			return i
+		}
+	}
+	return -1
+}
+
 // Contains will return a bool if a comparable item T is in the slice []T
 func Contains[T comparable](sl []T, item T) bool {
 	for _, elem := range sl {

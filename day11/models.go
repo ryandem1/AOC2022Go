@@ -3,6 +3,7 @@ package day11
 // missingPackItem represents a single item that was in our pack as we were heading upstream that fell out. Each item
 // has a corresponding worryLevel, which is an int representation of how worried we are to lose that item
 type missingPackItem struct {
+	id         int64
 	worryLevel int
 }
 

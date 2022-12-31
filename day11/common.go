@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // readMonkeys will read our input file and parse it out into keepAwayMonkey objects. Each monkey will contain some or
@@ -28,7 +29,7 @@ func readMonkeys() []*keepAwayMonkey {
 			if err != nil {
 				panic(err)
 			}
-			startingItems = append(startingItems, &missingPackItem{worryLevel: worryLevel})
+			startingItems = append(startingItems, &missingPackItem{id: time.Now().Unix(), worryLevel: worryLevel})
 		}
 		// endregion
 
@@ -109,7 +110,9 @@ func readMonkeys() []*keepAwayMonkey {
 
 // a throw function that will throw a missingPackItem to a different keepAwayMonkey
 func (monkey *keepAwayMonkey) throw(item *missingPackItem, target *keepAwayMonkey) {
-	iItem := common.FindIndex(monkey.items, item)
+	iItem := common.FindOneObjIndex(monkey.items, func(heldItem *missingPackItem) bool {
+		return heldItem.id == item.id
+	})
 	if iItem == -1 {
 		panic("Monkey tried to throw an item that it doesn't have! Probably an implementation problem")
 	}
